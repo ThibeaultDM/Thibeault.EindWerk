@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Thibeault.EindWerk.Base
+namespace Thibeault.EindWerk.Objects
 {
     public class User : IdentityUser
     {

@@ -1,4 +1,6 @@
-﻿namespace Thibeault.EindWerk.Services.RulesFrameWork
+﻿using Thibeault.EindWerk.Objects;
+
+namespace Thibeault.EindWerk.Services.RulesFrameWork
 {
     public class BusinessObject : BaseObject
     {

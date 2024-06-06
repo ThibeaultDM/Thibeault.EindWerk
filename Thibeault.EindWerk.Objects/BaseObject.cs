@@ -1,4 +1,5 @@
-﻿namespace Thibeault.EindWerk.Base
+﻿namespace Thibeault.EindWerk.Objects
+
 {
     public class BaseObject
     {
