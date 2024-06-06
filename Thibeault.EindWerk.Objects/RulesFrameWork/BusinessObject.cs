@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Service;
+﻿using Thibeault.EindWerk.Base.Objects;
 
-namespace Thibeault.EindWerk.Services.Rules
+namespace Thibeault.EindWerk.Base.RulesFrameWork
 {
     public class BusinessObject : BaseObject
     {
-        public bool IsValid { get { return Validate(); } }
+        public bool IsValid
+        { get { return Validate(); } }
 
         public List<Rule> Rules { get; set; } = new();
 

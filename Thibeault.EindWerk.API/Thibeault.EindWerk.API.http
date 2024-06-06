@@ -1,6 +1,0 @@
-@Thibeault.EindWerk.API_HostAddress = http://localhost:5265
-
-GET {{Thibeault.EindWerk.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

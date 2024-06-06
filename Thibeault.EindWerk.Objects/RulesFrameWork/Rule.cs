@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Thibeault.EindWerk.Service
+﻿namespace Thibeault.EindWerk.Base.RulesFrameWork
 {
-    public class Rule 
+    public class Rule
     {
         public bool Passed { get; set; }
         public string PropertyName { get; set; }
         public string Message { get; set; }
-
 
         /// <summary>
         /// Rule: object cannot be null

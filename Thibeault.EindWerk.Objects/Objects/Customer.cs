@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Thibeault.EindWerk.Objects
+﻿namespace Thibeault.EindWerk.Base.Objects
 {
     public class Customer
     {
@@ -12,7 +6,5 @@ namespace Thibeault.EindWerk.Objects
         public string FullName { get; set; }
         public string Email { get; set; }
         public Address Address { get; set; }
-
-
     }
 }

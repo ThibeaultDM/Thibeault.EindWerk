@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Objects
+﻿namespace Thibeault.EindWerk.Base.Objects
 {
     public class Address
     {
