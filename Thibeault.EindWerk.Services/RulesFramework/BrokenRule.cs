@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Base.RulesFrameWork
+﻿namespace Thibeault.EindWerk.Services.RulesFrameWork
 {
     public class BrokenRule
     {

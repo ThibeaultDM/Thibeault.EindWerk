@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <ProjectReference Include="..\Thibeault.EindWerk.Objects\Thibeault.EindWerk.Objects.csproj" />
   </ItemGroup>
 
 </Project>

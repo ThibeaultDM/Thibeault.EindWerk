@@ -1,6 +1,6 @@
-﻿namespace Thibeault.EindWerk.Base.Objects
+﻿namespace Thibeault.EindWerk.Base
 {
-    public class Customer
+    public class Customer : BaseObject
     {
         public string Id { get; set; }
         public string FullName { get; set; }
