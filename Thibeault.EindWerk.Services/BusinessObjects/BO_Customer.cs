@@ -9,5 +9,7 @@ namespace Thibeault.EindWerk.Services.BusinessObjects
         public string FullName { get; set; }
         public string Email { get; set; }
         public Address Address { get; set; }
+
+
     }
 }
