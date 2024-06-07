@@ -9,10 +9,24 @@ namespace Thibeault.EindWerk.Services.RulesFramework
 {
     public class CustomerRule : Rule
     {
-        public CustomerRule GenerateId(string propertyCustemorId, out string Id) 
+        public CustomerRule GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
         {
             this.PropertyName = propertyCustemorId;
-            // write it to database and get it's key
+            trackingNumber = "K";
+
+            try
+            {
+                int trackingId = id + 999;
+
+                trackingNumber += trackingId.ToString();
+
+            }
+            catch (Exception)
+            {
+                this.Passed = false;
+                this.Message = "No Id was given to create trackingNumber";
+            }
+
             return this;
         }
     }
