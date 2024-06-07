@@ -7,6 +7,7 @@ namespace Thibeault.EindWerk.Api.Controllers
         public IActionResult Index()
         {
             return View();
+
         }
     }
 }
