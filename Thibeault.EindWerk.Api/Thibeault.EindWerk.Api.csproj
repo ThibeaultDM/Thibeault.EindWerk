@@ -8,11 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.5" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.Identity.Web" Version="2.15.2" />
     <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="2.15.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Thibeault.EindWerk.DataLayer\Thibeault.EindWerk.DataLayer.csproj" />
+    <ProjectReference Include="..\Thibeault.EindWerk.Objects\Thibeault.EindWerk.Objects.csproj" />
+    <ProjectReference Include="..\Thibeault.EindWerk.Services\Thibeault.EindWerk.Services.csproj" />
   </ItemGroup>
 
 </Project>

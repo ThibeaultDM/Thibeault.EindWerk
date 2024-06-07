@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.Objects;
 
-namespace Thibeault.EindWerk.DataLayer
+namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
     public interface IDataContext
     {
