@@ -18,13 +18,18 @@ namespace Thibeault.EindWerk.Services.RulesFramework
             {
                 int trackingId = id + 999;
 
+                if (trackingId > 9999)
+                {
+                    throw new Exception();
+                }
+
                 trackingNumber += trackingId.ToString();
 
             }
             catch (Exception)
             {
                 this.Passed = false;
-                this.Message = "No Id was given to create trackingNumber";
+                this.Message = "No valid trackingNumber was generated";
             }
 
             return this;
