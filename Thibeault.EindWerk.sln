@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thibeault.EindWerk.DataLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thibeault.EindWerk.Services", "Thibeault.EindWerk.Services\Thibeault.EindWerk.Services.csproj", "{F0793C6D-EEA7-4BC0-8E76-91EEF5215946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{102C9861-A59A-4FCF-B796-F343BE21E0E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{102C9861-A59A-4FCF-B796-F343BE21E0E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thibeault.EindWerk.Api", "Thibeault.EindWerk.Api\Thibeault.EindWerk.Api.csproj", "{7CDEB82A-FEEE-4DC8-AEF3-F1A99A2AA464}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{102C9861-A59A-4FCF-B796-F343BE21E0E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102C9861-A59A-4FCF-B796-F343BE21E0E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{102C9861-A59A-4FCF-B796-F343BE21E0E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDEB82A-FEEE-4DC8-AEF3-F1A99A2AA464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDEB82A-FEEE-4DC8-AEF3-F1A99A2AA464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDEB82A-FEEE-4DC8-AEF3-F1A99A2AA464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDEB82A-FEEE-4DC8-AEF3-F1A99A2AA464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

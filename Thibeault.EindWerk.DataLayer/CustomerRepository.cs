@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
@@ -75,7 +70,6 @@ namespace Thibeault.EindWerk.DataLayer
                 }
                 catch (Exception)
                 {
-
                     isDeleted = false;
                 }
             }
@@ -86,7 +80,9 @@ namespace Thibeault.EindWerk.DataLayer
 
             return isDeleted;
         }
+
         #region Helper methodes
+
         public async Task DisposeAsync()
         {
             await DisposeAsync(true);
@@ -112,6 +108,6 @@ namespace Thibeault.EindWerk.DataLayer
             await dataContext.SaveChangesAsync();
         }
 
-        #endregion
+        #endregion Helper methodes
     }
 }

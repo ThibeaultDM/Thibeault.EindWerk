@@ -3,7 +3,7 @@ using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
-    public interface IDataContext 
+    public interface IDataContext
     {
         DbSet<Product> Products { get; set; }
 
@@ -13,6 +13,7 @@ namespace Thibeault.EindWerk.DataLayer
         DbSet<User> Users { get; set; }
 
         ValueTask DisposeAsync();
+
         Task<int> SaveChangesAsync();
     }
 }

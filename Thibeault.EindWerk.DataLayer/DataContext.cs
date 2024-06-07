@@ -4,11 +4,10 @@ using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
-
     public class DataContext : IdentityDbContext<User>, IDataContext
     {
-
         #region Constructors
+
         public DataContext()
         {
         }
@@ -17,7 +16,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         public DbSet<Product> Products { get; set; }
 
@@ -53,6 +52,5 @@ namespace Thibeault.EindWerk.DataLayer
 
             base.OnModelCreating(builder);
         }
-
     }
 }

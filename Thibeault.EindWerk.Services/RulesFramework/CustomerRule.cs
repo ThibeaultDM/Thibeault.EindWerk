@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Thibeault.EindWerk.Services.RulesFrameWork;
+﻿using Thibeault.EindWerk.Services.RulesFrameWork;
 
 namespace Thibeault.EindWerk.Services.RulesFramework
 {
@@ -25,7 +19,6 @@ namespace Thibeault.EindWerk.Services.RulesFramework
                 }
 
                 trackingNumber += trackingId.ToString();
-
             }
             catch (Exception)
             {
@@ -54,7 +47,6 @@ namespace Thibeault.EindWerk.Services.RulesFramework
                     {
                         return this;
                     }
-
                     else
                     {
                         throw new Exception();
@@ -67,7 +59,6 @@ namespace Thibeault.EindWerk.Services.RulesFramework
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
