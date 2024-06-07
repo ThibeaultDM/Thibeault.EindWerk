@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Thibeault.EindWerk.Services.RulesFramework
             {
                 int trackingId = id + 999;
 
-                if (trackingId > 9999)
+                if (trackingId > 10000 || trackingId < 999)
                 {
                     throw new Exception();
                 }
@@ -33,6 +34,42 @@ namespace Thibeault.EindWerk.Services.RulesFramework
             }
 
             return this;
+        }
+
+        public CustomerRule ValiditieTrackingNumber(string propertyCustomerId, string trackingNumber)
+        {
+            this.PropertyName = propertyCustomerId;
+
+            try
+            {
+                if (trackingNumber.Length == 5)
+                {
+                    char k = trackingNumber[0];
+
+                    trackingNumber = trackingNumber.Remove(0);
+
+                    int number = Convert.ToInt16(trackingNumber);
+
+                    if (k == 'K' && 10000 > number && number > 999)
+                    {
+                        return this;
+                    }
+
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

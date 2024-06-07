@@ -8,7 +8,7 @@ namespace Thibeault.EindWerk.Services.BusinessObjects
     {
         private string trackingNumber;
 
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         public string TrackingNumber
         {
             get { return trackingNumber; }
@@ -30,7 +30,7 @@ namespace Thibeault.EindWerk.Services.BusinessObjects
             Rules.Add(new CustomerRule().IsRequired(nameof(Address), Address));
 
             Rules.Add(new CustomerRule().GenerateTrackingNumber(nameof(TrackingNumber), Id, out trackingNumber));
-
+            Rules.Add(new CustomerRule().ValiditieTrackingNumber(nameof(TrackingNumber), TrackingNumber));
             return base.AddBusinessRules();
         }
 
