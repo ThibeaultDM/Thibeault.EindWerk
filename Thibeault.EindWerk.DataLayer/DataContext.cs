@@ -4,7 +4,8 @@ using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
-    public class DataContext : IdentityDbContext<User>
+
+    public class DataContext : IdentityDbContext<User>, IDataContext
     {
 
         #region Constructors
@@ -18,12 +19,15 @@ namespace Thibeault.EindWerk.DataLayer
 
         #endregion
 
-        DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-        DbSet<Address> Addresss { get; set; }
-        DbSet<User> Users { get; set; }
+        public DbSet<Address> Addresss { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        // Wraping DbContext.SaveChangesAsync method
+        public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,7 +49,7 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Product>().HasAlternateKey(x => x.SerialNumber).;
             builder.Entity<Customer>().HasAlternateKey(x => x.TrackingNumber);
 
-            builder.Entity<Customer>().HasOne<Address>(c=>c.Address);
+            builder.Entity<Customer>().HasOne<Address>(c => c.Address);
 
             base.OnModelCreating(builder);
         }
