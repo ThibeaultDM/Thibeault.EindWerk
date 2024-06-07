@@ -56,10 +56,45 @@ namespace Thibeault.EindWerk.DataLayer
         {
             Customer customer = await dataContext.Customers.AsNoTracking().Include(c => c.Address)
                                                            .SingleOrDefaultAsync(c => c.TrackingNumber == trackingNumber);
-
             return customer;
         }
 
+        public virtual async Task UpdateCustomer(Customer customerToUpdate)
+        {
+            customerToUpdate.UpdatedOn = DateTime.Now;
+            customerToUpdate.UpdatedBy = Environment.UserName;
+
+            var entry = dataContext.Customers.Attach(customerToUpdate);
+            entry.State = EntityState.Modified;
+            await dataContext.SaveChangesAsync();
+        }
+
+        public virtual async Task<bool> DeleteCustomer(string trackingNumber)
+        {
+            bool isDeleted;
+            Customer customerToDelete = await GetCustomerByTrackingNumber(trackingNumber);
+
+            if (customerToDelete != null)
+            {
+                try
+                {
+                    dataContext.Customers.Remove(customerToDelete);
+                    SaveAsync();
+                    isDeleted = true;
+                }
+                catch (Exception)
+                {
+
+                    isDeleted = false;
+                }
+            }
+            else
+            {
+                isDeleted = false;
+            }
+
+            return isDeleted;
+        }
         #region Helper methodes
         public async Task DisposeAsync()
         {
