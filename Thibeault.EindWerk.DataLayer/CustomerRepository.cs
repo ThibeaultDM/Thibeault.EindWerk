@@ -17,25 +17,16 @@ namespace Thibeault.EindWerk.DataLayer
             this.dataContext = dataContext;
         }
 
-        public virtual async Task<Customer> CreateCustomer(Customer customerToCreate)
-        {
-            // TODO give a place holder TrackingNumber
-            customerToCreate.CreatedOn = DateTime.Now;
-            customerToCreate.CreatedBy = Environment.UserName;
-            customerToCreate.UpdatedOn = DateTime.Now;
-            customerToCreate.UpdatedBy = Environment.UserName;
-
-            await dataContext.Customers.AddAsync(customerToCreate);
-            await dataContext.SaveChangesAsync();
-
-            // TODO with TrackingNumber add k-id+999
-            return customerToCreate;
-        }
-
         public virtual async Task<bool> AddCustomer(Customer customerToSave)
         {
             try
             {
+                // TODO give a place holder TrackingNumber
+                customerToSave.CreatedOn = DateTime.Now;
+                customerToSave.CreatedBy = Environment.UserName;
+                customerToSave.UpdatedOn = DateTime.Now;
+                customerToSave.UpdatedBy = Environment.UserName;
+
                 await dataContext.Customers.AddAsync(customerToSave);
                 await dataContext.SaveChangesAsync();
 
