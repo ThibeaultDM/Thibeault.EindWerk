@@ -15,23 +15,21 @@ namespace Thibeault.EindWerk.DataLayer
 
         public virtual async Task<Customer> AddCustomer()
         {
+            // to create a customer I need a unique Id from which I generate a unique tracking number.
+            // I let the database deal with making sure it's unique
+
             Customer customerToAdd = new();
+            customerToAdd.TrackingNumber = "K0";
 
-            try
-            {
-                // TODO give a place holder TrackingNumber
-                customerToAdd.CreatedOn = DateTime.Now;
-                customerToAdd.CreatedBy = Environment.UserName;
+            customerToAdd.CreatedOn = DateTime.Now;
+            customerToAdd.CreatedBy = Environment.UserName;
 
-                await dataContext.Customers.AddAsync(customerToAdd);
-                await dataContext.SaveChangesAsync();
+            await dataContext.Customers.AddAsync(customerToAdd);
+            await dataContext.SaveChangesAsync();
 
-                return customerToAdd;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            customerToAdd = await GetCustomerByTrackingNumber("K0");
+
+            return customerToAdd;
         }
 
         public virtual async Task<List<Customer>> GetCustomers()
