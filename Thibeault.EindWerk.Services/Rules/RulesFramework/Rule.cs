@@ -2,7 +2,7 @@
 {
     public class Rule
     {
-        public bool Passed { get; set; }
+        public bool Passed { get; set; } = true;
         public string PropertyName { get; set; }
         public string Message { get; set; }
 

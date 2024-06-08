@@ -22,7 +22,6 @@ namespace Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects
         public override bool AddBusinessRules()
         {
             Rules.Add(new CustomerRule().IsRequired(nameof(Id), Id));
-            Rules.Add(new CustomerRule().IsRequired(nameof(TrackingNumber), TrackingNumber));
             Rules.Add(new CustomerRule().IsRequired(nameof(FullName), FullName));
             Rules.Add(new CustomerRule().IsRequired(nameof(Email), Email));
             Rules.Add(new CustomerRule().IsRequired(nameof(Address), Address));

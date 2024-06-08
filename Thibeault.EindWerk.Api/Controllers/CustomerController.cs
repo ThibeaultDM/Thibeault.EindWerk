@@ -35,12 +35,12 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
         [HttpPost("CreateCustomer")]
+        // TODO look at tracking bug
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomer input)
         {
             // should an invalid customer have been created it will have a tracking Id of "K0"
@@ -69,7 +69,6 @@ namespace Thibeault.EindWerk.Api.Controllers
             else
             {
                 CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
 
                 return BadRequest(response);
             }

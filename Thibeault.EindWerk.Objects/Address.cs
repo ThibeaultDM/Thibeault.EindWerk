@@ -8,9 +8,9 @@ namespace Thibeault.EindWerk.Objects
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string City { get; set; }
+        public string City { get; set; } = string.Empty;
         public int PostCode { get; set; }
-        public string StreetName { get; set; }
+        public string StreetName { get; set; } = string.Empty;
         public int HouseNumber { get; set; }
     }
 }
