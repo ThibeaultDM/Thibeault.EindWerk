@@ -46,7 +46,7 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Customer>().HasIndex(x => x.Id).IsUnique();
             builder.Entity<User>().HasIndex(x => x.Id).IsUnique();
 
-            builder.Entity<Product>().HasAlternateKey(x => x.SerialNumber).;
+            builder.Entity<Product>().HasAlternateKey(x => x.SerialNumber);
             builder.Entity<Customer>().HasAlternateKey(x => x.TrackingNumber);
 
             builder.Entity<Customer>().HasOne<Address>(c => c.Address);
