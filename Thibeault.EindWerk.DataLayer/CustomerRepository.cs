@@ -39,12 +39,14 @@ namespace Thibeault.EindWerk.DataLayer
 
         public virtual async Task<Customer> GetCustomerByTrackingNumber(string trackingNumber)
         {
-            Customer customer = await dataContext.Customers.AsNoTracking().Include(c => c.Address)
-                                                           .SingleOrDefaultAsync(c => c.TrackingNumber == trackingNumber);
+            // I don't use singleOrDefault for possible edge case of multiple invalid ("K0") customers existing
+            Customer customer = await dataContext.Customers
+                                                 .AsNoTracking().Include(c => c.Address)
+                                                 .FirstOrDefaultAsync(c => c.TrackingNumber == trackingNumber);
             return customer;
         }
 
-        public virtual async Task UpdateCustomer(Customer customerToUpdate)
+        public virtual async Task<Customer> UpdateCustomer(Customer customerToUpdate)
         {
             customerToUpdate.UpdatedOn = DateTime.Now;
             customerToUpdate.UpdatedBy = Environment.UserName;
@@ -52,6 +54,8 @@ namespace Thibeault.EindWerk.DataLayer
             var entry = dataContext.Customers.Attach(customerToUpdate);
             entry.State = EntityState.Modified;
             await dataContext.SaveChangesAsync();
+
+            return customerToUpdate;
         }
 
         public virtual async Task<bool> DeleteCustomer(string trackingNumber)

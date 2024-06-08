@@ -22,13 +22,11 @@ namespace Thibeault.EindWerk.Api.Controllers
         }
 
         [HttpPost("CreateCustomer")]
-        public Task<IActionResult> CreateCustomer([FromBody] CreateCustomer customerToCreate)
+        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomer customerToCreate)
         {
-            
-
-            BO_Customer customerBo = mapper.Map<BO_Customer>(customerToCreate);
-
-
+            // should an invalid customer have been created it will have a tracking Id of "K0"
+            // No need to have it keep taking up space
+            Customer customer = await repository.GetCustomerByTrackingNumber("K0");
 
             if (customerBo.IsValid)
             {
