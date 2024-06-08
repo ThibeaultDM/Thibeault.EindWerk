@@ -13,20 +13,20 @@ namespace Thibeault.EindWerk.DataLayer
             this.dataContext = dataContext;
         }
 
-        public virtual async Task<bool> AddCustomer(Customer customerToSave)
+        public virtual async Task<Customer> AddCustomer()
         {
+            Customer customerToAdd = new();
+
             try
             {
                 // TODO give a place holder TrackingNumber
-                customerToSave.CreatedOn = DateTime.Now;
-                customerToSave.CreatedBy = Environment.UserName;
-                customerToSave.UpdatedOn = DateTime.Now;
-                customerToSave.UpdatedBy = Environment.UserName;
+                customerToAdd.CreatedOn = DateTime.Now;
+                customerToAdd.CreatedBy = Environment.UserName;
 
-                await dataContext.Customers.AddAsync(customerToSave);
+                await dataContext.Customers.AddAsync(customerToAdd);
                 await dataContext.SaveChangesAsync();
 
-                return true;
+                return customerToAdd;
             }
             catch (Exception)
             {

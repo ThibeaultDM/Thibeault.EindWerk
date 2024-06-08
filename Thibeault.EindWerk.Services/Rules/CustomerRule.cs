@@ -1,29 +1,28 @@
-﻿using Thibeault.EindWerk.Services.RulesFrameWork;
+﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Services.RulesFramework
+namespace Thibeault.EindWerk.Services.Rules
 {
     public class CustomerRule : Rule
     {
         public CustomerRule GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
         {
-            this.PropertyName = propertyCustemorId;
+            PropertyName = propertyCustemorId;
             trackingNumber = "K";
 
             try
             {
-                int trackingId = id + 999;
 
-                if (trackingId > 10000 || trackingId < 999)
+                if (id > 9999 || id < 1)
                 {
                     throw new Exception();
                 }
-
-                trackingNumber += trackingId.ToString();
+                // change id to a 4 digit format and pad it with 0's ( my spelling test results :') )
+                trackingNumber += id.ToString().PadLeft(4,'0');
             }
             catch (Exception)
             {
-                this.Passed = false;
-                this.Message = "No valid trackingNumber was generated";
+                Passed = false;
+                Message = "No valid trackingNumber was generated";
             }
 
             return this;
@@ -31,7 +30,7 @@ namespace Thibeault.EindWerk.Services.RulesFramework
 
         public CustomerRule ValiditieTrackingNumber(string propertyCustomerId, string trackingNumber)
         {
-            this.PropertyName = propertyCustomerId;
+            PropertyName = propertyCustomerId;
 
             try
             {

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.DataLayer.Interfaces;
+using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Controllers
 {
@@ -20,9 +22,18 @@ namespace Thibeault.EindWerk.Api.Controllers
         }
 
         [HttpPost("CreateCustomer")]
-        public Task<IActionResult> CreateCustomer([FromBody] CreateCustomer)
+        public Task<IActionResult> CreateCustomer([FromBody] CreateCustomer customerToCreate)
         {
             
+
+            BO_Customer customerBo = mapper.Map<BO_Customer>(customerToCreate);
+
+
+
+            if (customerBo.IsValid)
+            {
+
+            }
         }
     }
 }

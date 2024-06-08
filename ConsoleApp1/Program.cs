@@ -1,5 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿int id = 99999;
+string trackingNumber = "K";
 
-int t = 0 / 2;
+trackingNumber += id.ToString().PadLeft(4, '0');
 
-Console.WriteLine("Hello, World!");
+
+Console.WriteLine(trackingNumber);
+Console.ReadLine();

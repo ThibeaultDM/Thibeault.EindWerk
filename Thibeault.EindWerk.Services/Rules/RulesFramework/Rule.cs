@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Services.RulesFrameWork
+﻿namespace Thibeault.EindWerk.Services.Rules.RulesFramework
 {
     public class Rule
     {
@@ -14,12 +14,12 @@
         /// <returns>Business rule</returns>
         public Rule IsRequired(string propertyName, object valueToCheck)
         {
-            this.PropertyName = propertyName;
+            PropertyName = propertyName;
 
             if (valueToCheck == null)
             {
-                this.Passed = false;
-                this.Message = ($"Property '{propertyName}' is required");
+                Passed = false;
+                Message = $"Property '{propertyName}' is required";
             }
 
             return this;
@@ -33,12 +33,12 @@
         /// <returns>Business rule</returns>
         public Rule IsRequired(string propertyName, string valueToCheck)
         {
-            this.PropertyName = propertyName;
+            PropertyName = propertyName;
 
             if (string.IsNullOrWhiteSpace(valueToCheck) || valueToCheck == string.Empty)
             {
-                this.Passed = false;
-                this.Message = ($"Property '{propertyName}' is required and can not be empty or whitespace"); //$"Is required: {valueToCheck} for property {property}";
+                Passed = false;
+                Message = $"Property '{propertyName}' is required and can not be empty or whitespace"; //$"Is required: {valueToCheck} for property {property}";
             }
 
             return this;

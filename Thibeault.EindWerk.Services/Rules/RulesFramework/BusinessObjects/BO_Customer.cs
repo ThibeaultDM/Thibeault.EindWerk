@@ -1,8 +1,7 @@
 ﻿using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Services.RulesFramework;
-using Thibeault.EindWerk.Services.RulesFrameWork;
+using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Services.RulesFramework.BusinessObjects
+namespace Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects
 {
     public class BO_Customer : BusinessObject
     {

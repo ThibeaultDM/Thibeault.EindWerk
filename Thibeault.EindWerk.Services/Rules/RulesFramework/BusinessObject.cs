@@ -1,6 +1,6 @@
 ﻿using Thibeault.EindWerk.Objects;
 
-namespace Thibeault.EindWerk.Services.RulesFrameWork
+namespace Thibeault.EindWerk.Services.Rules.RulesFramework
 {
     public class BusinessObject : BaseObject
     {
@@ -17,7 +17,7 @@ namespace Thibeault.EindWerk.Services.RulesFrameWork
         /// <returns>returns true or false</returns>
         private bool Validate()
         {
-            this.BrokenRules = new List<BrokenRule>(); //always reset the list to prevent duplicates
+            BrokenRules = new List<BrokenRule>(); //always reset the list to prevent duplicates
 
             bool rulesPassed = AddBusinessRules();
 
@@ -41,12 +41,12 @@ namespace Thibeault.EindWerk.Services.RulesFrameWork
                 {
                     if (!item.Passed)
                     {
-                        this.BrokenRules.Add(new BrokenRule(item.Message, item.PropertyName));
+                        BrokenRules.Add(new BrokenRule(item.Message, item.PropertyName));
                     }
                 }
             }
 
-            if (this.BrokenRules == null || this.BrokenRules.Count == 0)
+            if (BrokenRules == null || BrokenRules.Count == 0)
             {
                 return true;
             }
