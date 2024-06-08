@@ -25,7 +25,7 @@ namespace Thibeault.EindWerk.DataLayer
             customerToAdd.CreatedBy = Environment.UserName;
 
             await dataContext.Customers.AddAsync(customerToAdd);
-            await dataContext.SaveChangesAsync();
+            await SaveAsync();
 
             customerToAdd = await GetCustomerByTrackingNumber("K0");
 
@@ -53,7 +53,7 @@ namespace Thibeault.EindWerk.DataLayer
 
             var entry = dataContext.Customers.Attach(customerToUpdate);
             entry.State = EntityState.Modified;
-            await dataContext.SaveChangesAsync();
+            await SaveAsync();
         }
 
         public virtual async Task<bool> DeleteCustomer(string trackingNumber)
@@ -66,7 +66,7 @@ namespace Thibeault.EindWerk.DataLayer
                 try
                 {
                     dataContext.Customers.Remove(customerToDelete);
-                    SaveAsync();
+                    await SaveAsync();
                     isDeleted = true;
                 }
                 catch (Exception)

@@ -5,7 +5,12 @@ namespace Thibeault.EindWerk.Services.Rules.RulesFramework
     public class BusinessObject : BaseObject
     {
         public bool IsValid
-        { get { return Validate(); } }
+        { 
+            get 
+            { 
+                return Validate(); 
+            } 
+        }
 
         public List<Rule> Rules { get; set; } = new();
 

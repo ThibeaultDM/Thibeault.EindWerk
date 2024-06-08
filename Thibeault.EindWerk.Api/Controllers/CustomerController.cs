@@ -21,6 +21,25 @@ namespace Thibeault.EindWerk.Api.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet("GetAllCustomers")]
+        public async Task<IActionResult> Index()
+        {
+            try
+            {
+                List<Customer> customers = await repository.GetCustomers();
+
+                List<CreatedCustomer> respons = mapper.Map<List<CreatedCustomer>>(customers);
+
+                return Ok(respons);
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPost("CreateCustomer")]
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomer input)
         {
@@ -33,11 +52,9 @@ namespace Thibeault.EindWerk.Api.Controllers
                 customer = await repository.AddCustomer();
             }
 
-            // get unique id and the user input in 1 object
-            customer = mapper.Map<Customer>(input);
-
             // get that in the object for testing
-            BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
+            BO_Customer customerBo = mapper.Map<BO_Customer>(input);
+            customerBo.Id = customer.Id;
 
             if (customerBo.IsValid)
             {
@@ -52,6 +69,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             else
             {
                 CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
 
                 return BadRequest(response);
             }

@@ -28,7 +28,7 @@ namespace Thibeault.EindWerk.Services.Rules
             return this;
         }
 
-        public CustomerRule ValiditieTrackingNumber(string propertyCustomerId, string trackingNumber)
+        public CustomerRule ValiditieTrackingNumber(string propertyCustomerId, int id, string trackingNumber)
         {
             PropertyName = propertyCustomerId;
 
@@ -38,15 +38,11 @@ namespace Thibeault.EindWerk.Services.Rules
                 {
                     char k = trackingNumber[0];
 
-                    trackingNumber = trackingNumber.Remove(0);
+                    trackingNumber = trackingNumber.Remove(0,1);
 
                     int number = Convert.ToInt16(trackingNumber);
 
-                    if (k == 'K' && 10000 > number && number > 999)
-                    {
-                        return this;
-                    }
-                    else
+                    if (k != 'K' || 9999 < id || id < 1 || number != id)
                     {
                         throw new Exception();
                     }
@@ -58,8 +54,11 @@ namespace Thibeault.EindWerk.Services.Rules
             }
             catch (Exception)
             {
-                throw;
+                Passed = false;
+                Message = "No valid trackingNumber was generated";
             }
+
+            return this;
         }
     }
 }

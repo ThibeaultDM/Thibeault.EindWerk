@@ -6,7 +6,8 @@ namespace Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects
     {
         private string trackingNumber;
 
-        public int Id { get; set; } = 0;
+        // nullable so that the map asigns the value correctly
+        public int? Id { get; set; } = null;
 
         public string TrackingNumber
         {
@@ -26,8 +27,9 @@ namespace Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects
             Rules.Add(new CustomerRule().IsRequired(nameof(Email), Email));
             Rules.Add(new CustomerRule().IsRequired(nameof(Address), Address));
 
-            Rules.Add(new CustomerRule().GenerateTrackingNumber(nameof(TrackingNumber), Id, out trackingNumber));
-            Rules.Add(new CustomerRule().ValiditieTrackingNumber(nameof(TrackingNumber), TrackingNumber));
+            Rules.Add(new CustomerRule().GenerateTrackingNumber(nameof(TrackingNumber), (int)Id, out trackingNumber));
+            Rules.Add(new CustomerRule().ValiditieTrackingNumber(nameof(TrackingNumber), (int)Id, TrackingNumber));
+            
             return base.AddBusinessRules();
         }
     }

@@ -12,8 +12,8 @@ namespace Thibeault.EindWerk.Api.Models
         {
             // Customer
             CreateMap<BO_Customer, Customer>().ReverseMap();
-            CreateMap<CreateCustomer, Customer>().ReverseMap();
-            CreateMap<CreatedCustomer, Customer>().ReverseMap();
+            CreateMap<CreateCustomer, BO_Customer>().ReverseMap();
+            CreateMap<CreatedCustomer, BO_Customer>().ReverseMap();
             // Product
             CreateMap<BO_Product, Product>().ReverseMap();
         }
