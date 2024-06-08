@@ -28,6 +28,11 @@ namespace Thibeault.EindWerk.Api.Controllers
             // No need to have it keep taking up space
             Customer customer = await repository.GetCustomerByTrackingNumber("K0");
 
+            if (customer == null)
+            {
+                customer = await repository.AddCustomer();
+            }
+
             if (customerBo.IsValid)
             {
 
