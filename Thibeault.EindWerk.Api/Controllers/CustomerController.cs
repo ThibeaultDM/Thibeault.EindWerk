@@ -34,7 +34,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 customer = await repository.AddCustomer();
             }
 
-            // get unique id and user input in 1 object
+            // get unique id and the user input in 1 object
             customer = mapper.Map<Customer>(input);
 
             // get that in the object for testing
@@ -45,13 +45,16 @@ namespace Thibeault.EindWerk.Api.Controllers
                 customer.TrackingNumber = customerBo.TrackingNumber;
 
                 await repository.UpdateCustomer(customer);
-                
-                CreatedCustomer response= mapper.Map<CreatedCustomer>(customer);
-                return Ok(customer);
+
+                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                return Ok(response);
             }
             else
             {
-                return bad
+                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                return BadRequest(response);
             }
         }
     }
