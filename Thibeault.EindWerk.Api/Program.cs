@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
@@ -14,6 +13,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 #region Dependency Injection
+
 // DataLayer
 string connectionString = builder.Configuration.GetConnectionString("Thibeault");
 
@@ -25,7 +25,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 // Api
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
-#endregion
+#endregion Dependency Injection
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

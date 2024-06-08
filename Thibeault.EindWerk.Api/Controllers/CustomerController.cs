@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
-using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
 using Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects;
 

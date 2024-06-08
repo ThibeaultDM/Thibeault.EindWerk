@@ -11,14 +11,13 @@ namespace Thibeault.EindWerk.Services.Rules
 
             try
             {
-
                 if (id > 9999 || id < 1)
                 {
                     throw new Exception();
                 }
 
                 // change id to a 4 digit format and pad it with 0's ( my spelling test results :') )
-                trackingNumber += id.ToString().PadLeft(4,'0');
+                trackingNumber += id.ToString().PadLeft(4, '0');
             }
             catch (Exception)
             {

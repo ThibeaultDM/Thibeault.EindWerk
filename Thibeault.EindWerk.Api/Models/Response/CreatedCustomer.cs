@@ -10,6 +10,6 @@ namespace Thibeault.EindWerk.Api.Models.Response
         public string Email { get; set; }
         public Address Address { get; set; }
 
-        List<BrokenRule> BrokenRules { get; set; }
+        private List<BrokenRule> BrokenRules { get; set; }
     }
 }

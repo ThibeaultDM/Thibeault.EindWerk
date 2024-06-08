@@ -7,6 +7,5 @@ namespace Thibeault.EindWerk.Api.Models.Input
         public string FullName { get; set; }
         public string Email { get; set; }
         public Address Address { get; set; }
-
     }
 }
