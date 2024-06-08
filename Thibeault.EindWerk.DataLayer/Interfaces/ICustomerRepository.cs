@@ -10,6 +10,6 @@ namespace Thibeault.EindWerk.DataLayer
         Task<Customer> GetCustomerByTrackingNumber(string trackingNumber);
         Task<List<Customer>> GetCustomers();
         Task SaveAsync();
-        Task<Customer> UpdateCustomer(Customer customerToUpdate);
+        Task UpdateCustomer(Customer customerToUpdate);
     }
 }

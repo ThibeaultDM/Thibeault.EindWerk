@@ -46,7 +46,7 @@ namespace Thibeault.EindWerk.DataLayer
             return customer;
         }
 
-        public virtual async Task<Customer> UpdateCustomer(Customer customerToUpdate)
+        public virtual async Task UpdateCustomer(Customer customerToUpdate)
         {
             customerToUpdate.UpdatedOn = DateTime.Now;
             customerToUpdate.UpdatedBy = Environment.UserName;
@@ -54,8 +54,6 @@ namespace Thibeault.EindWerk.DataLayer
             var entry = dataContext.Customers.Attach(customerToUpdate);
             entry.State = EntityState.Modified;
             await dataContext.SaveChangesAsync();
-
-            return customerToUpdate;
         }
 
         public virtual async Task<bool> DeleteCustomer(string trackingNumber)

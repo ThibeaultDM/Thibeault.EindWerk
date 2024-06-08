@@ -1,4 +1,5 @@
 ﻿using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
 namespace Thibeault.EindWerk.Api.Models.Response
 {
@@ -8,5 +9,7 @@ namespace Thibeault.EindWerk.Api.Models.Response
         public string FullName { get; set; }
         public string Email { get; set; }
         public Address Address { get; set; }
+
+        List<BrokenRule> BrokenRules { get; set; }
     }
 }
