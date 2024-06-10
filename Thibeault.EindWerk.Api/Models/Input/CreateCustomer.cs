@@ -1,6 +1,4 @@
-﻿using Thibeault.EindWerk.Objects;
-
-namespace Thibeault.EindWerk.Api.Models.Input
+﻿namespace Thibeault.EindWerk.Api.Models.Input
 {
     public class CreateCustomer
     {

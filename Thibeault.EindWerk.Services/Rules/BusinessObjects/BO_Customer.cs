@@ -30,7 +30,6 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
             Rules.Add(new CustomerRules().IsRequired(nameof(Address.StreetName), Address.StreetName));
             Rules.Add(new CustomerRules().IsRequired(nameof(Address.HouseNumber), Address.HouseNumber));
 
-
             Rules.Add(new CustomerRules().GenerateTrackingNumber(nameof(TrackingNumber), (int)Id, out trackingNumber));
             Rules.Add(new CustomerRules().ValiditieTrackingNumber(nameof(TrackingNumber), (int)Id, TrackingNumber));
 

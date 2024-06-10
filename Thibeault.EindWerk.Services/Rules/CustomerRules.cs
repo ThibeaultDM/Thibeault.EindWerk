@@ -38,7 +38,7 @@ namespace Thibeault.EindWerk.Services.Rules
                 {
                     char k = trackingNumber[0];
 
-                    trackingNumber = trackingNumber.Remove(0,1);
+                    trackingNumber = trackingNumber.Remove(0, 1);
 
                     int number = Convert.ToInt16(trackingNumber);
 

@@ -13,13 +13,13 @@ namespace Thibeault.EindWerk.DataLayer
             this.dataContext = dataContext;
         }
 
-        public virtual async Task<Customer> AddCustomer()
+        public virtual async Task<Customer> AddCustomerAsync()
         {
             Customer customerToAdd;
 
             // should an invalid customer have been created it will have a tracking Id of "K0"
             // No need to have it keep taking up space
-            customerToAdd = await GetCustomerByTrackingNumber("K0");
+            customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
 
             if (customerToAdd == null)
             {
@@ -35,18 +35,18 @@ namespace Thibeault.EindWerk.DataLayer
                 await dataContext.Customers.AddAsync(customerToAdd);
                 await SaveAsync();
 
-                customerToAdd = await GetCustomerByTrackingNumber("K0");
+                customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
             }
 
             return customerToAdd;
         }
 
-        public virtual async Task<List<Customer>> GetCustomers()
+        public virtual async Task<List<Customer>> GetCustomersAsync()
         {
             return await dataContext.Customers.AsNoTracking().Include(c => c.Address).ToListAsync();
         }
 
-        public virtual async Task<Customer> GetCustomerByTrackingNumber(string trackingNumber)
+        public virtual async Task<Customer> GetCustomerByTrackingNumberAsync(string trackingNumber)
         {
             // I don't use singleOrDefault for possible edge case of multiple invalid ("K0") customers existing
             Customer customer = await dataContext.Customers
@@ -65,10 +65,10 @@ namespace Thibeault.EindWerk.DataLayer
             await SaveAsync();
         }
 
-        public virtual async Task<bool> DeleteCustomer(string trackingNumber)
+        public virtual async Task<bool> DeleteCustomerAsync(string trackingNumber)
         {
             bool isDeleted;
-            Customer customerToDelete = await GetCustomerByTrackingNumber(trackingNumber);
+            Customer customerToDelete = await GetCustomerByTrackingNumberAsync(trackingNumber);
 
             if (customerToDelete != null)
             {
@@ -113,7 +113,7 @@ namespace Thibeault.EindWerk.DataLayer
             this.disposed = true;
         }
 
-        public async Task SaveAsync()
+        private async Task SaveAsync()
         {
             await dataContext.SaveChangesAsync();
         }

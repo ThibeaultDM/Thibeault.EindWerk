@@ -6,6 +6,5 @@
         public int PostCode { get; set; }
         public string StreetName { get; set; }
         public int HouseNumber { get; set; }
-
     }
 }

@@ -10,6 +10,8 @@ namespace Thibeault.EindWerk.Api.Models
     {
         public AutoMapperConfig()
         {
+            // todo look at custom mapping again
+
             // Customer
             CreateMap<BO_Customer, Customer>().ReverseMap();
             CreateMap<CreateCustomer, BO_Customer>().ReverseMap();
@@ -22,5 +24,6 @@ namespace Thibeault.EindWerk.Api.Models
             // Address
             CreateMap<Address, AddressDto>().ReverseMap();
         }
+                 
     }
 }

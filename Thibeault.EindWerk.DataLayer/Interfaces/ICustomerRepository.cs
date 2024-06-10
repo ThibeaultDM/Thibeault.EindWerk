@@ -4,17 +4,13 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public interface ICustomerRepository
     {
-        Task<Customer> AddCustomer();
+        Task<Customer> AddCustomerAsync();
 
-        Task<bool> DeleteCustomer(string trackingNumber);
+        Task<bool> DeleteCustomerAsync(string trackingNumber);
 
-        Task DisposeAsync();
+        Task<Customer> GetCustomerByTrackingNumberAsync(string trackingNumber);
 
-        Task<Customer> GetCustomerByTrackingNumber(string trackingNumber);
-
-        Task<List<Customer>> GetCustomers();
-
-        Task SaveAsync();
+        Task<List<Customer>> GetCustomersAsync();
 
         Task UpdateCustomer(Customer customerToUpdate);
     }

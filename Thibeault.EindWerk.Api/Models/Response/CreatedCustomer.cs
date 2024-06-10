@@ -1,5 +1,4 @@
 ﻿using Thibeault.EindWerk.Api.Models.Input;
-using Thibeault.EindWerk.Objects;
 using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
 namespace Thibeault.EindWerk.Api.Models.Response
