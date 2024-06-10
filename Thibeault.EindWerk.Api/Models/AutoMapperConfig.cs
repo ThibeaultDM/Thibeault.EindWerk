@@ -2,7 +2,7 @@
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects;
+using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Models
 {

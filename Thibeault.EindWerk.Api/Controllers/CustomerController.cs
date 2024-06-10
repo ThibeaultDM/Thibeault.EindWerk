@@ -4,7 +4,7 @@ using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects;
+using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Controllers
 {
@@ -43,15 +43,7 @@ namespace Thibeault.EindWerk.Api.Controllers
         // TODO look at tracking bug
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomer input)
         {
-            // should an invalid customer have been created it will have a tracking Id of "K0"
-            // No need to have it keep taking up space
-            Customer customer = await repository.GetCustomerByTrackingNumber("K0");
-
-            if (customer == null)
-            {
-                customer = await repository.AddCustomer();
-            }
-
+            Customer customer = await repository.AddCustomer();
             // get that in the object for testing
             BO_Customer customerBo = mapper.Map<BO_Customer>(input);
             customerBo.Id = customer.Id;

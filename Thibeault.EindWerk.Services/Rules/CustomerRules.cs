@@ -2,9 +2,9 @@
 
 namespace Thibeault.EindWerk.Services.Rules
 {
-    public class CustomerRule : Rule
+    public class CustomerRules : Rule
     {
-        public CustomerRule GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
+        public CustomerRules GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
         {
             PropertyName = propertyCustemorId;
             trackingNumber = "K";
@@ -28,7 +28,7 @@ namespace Thibeault.EindWerk.Services.Rules
             return this;
         }
 
-        public CustomerRule ValiditieTrackingNumber(string propertyCustomerId, int id, string trackingNumber)
+        public CustomerRules ValiditieTrackingNumber(string propertyCustomerId, int id, string trackingNumber)
         {
             PropertyName = propertyCustomerId;
 

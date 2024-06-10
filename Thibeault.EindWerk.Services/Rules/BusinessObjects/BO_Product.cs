@@ -1,4 +1,6 @@
-﻿namespace Thibeault.EindWerk.Services.Rules.RulesFramework.BusinessObjects
+﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
+
+namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 {
     public class BO_Product : BusinessObject
     {
