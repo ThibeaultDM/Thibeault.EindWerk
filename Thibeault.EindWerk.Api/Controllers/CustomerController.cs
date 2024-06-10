@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
@@ -41,10 +42,11 @@ namespace Thibeault.EindWerk.Api.Controllers
 
         [HttpPost("CreateCustomer")]
         // TODO look at tracking bug
-        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomer input)
+        public async Task<IActionResult> CreateCustomerAsync([FromBody] CreateCustomer input)
         {
             Customer customer = await repository.AddCustomer();
-            // get that in the object for testing
+
+            // get customer ready for testing
             BO_Customer customerBo = mapper.Map<BO_Customer>(input);
             customerBo.Id = customer.Id;
 
@@ -52,6 +54,38 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 customer.TrackingNumber = customerBo.TrackingNumber;
 
+                await repository.UpdateCustomer(customer);
+
+                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                return Ok(response);
+            }
+            else
+            {
+                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                return BadRequest(response);
+            }
+        }
+
+        [HttpPut("UpdateCustomer")]
+        // TODO look at tracking bug
+        public async Task<IActionResult> UpdateCustomerAsync([FromBody] CreatedCustomer input)
+        {
+            Customer customer = await repository.GetCustomerByTrackingNumber(input.TrackingNumber);
+
+            if (customer == null)
+            {
+                return BadRequest("Customer not found");
+            }
+
+            customer = mapper.Map<Customer>(input);  
+
+            // get that in the object for testing
+            BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
+
+            if (customerBo.IsValid)
+            {
                 await repository.UpdateCustomer(customer);
 
                 CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);

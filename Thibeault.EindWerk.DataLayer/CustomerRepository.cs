@@ -43,7 +43,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         public virtual async Task<List<Customer>> GetCustomers()
         {
-            return await dataContext.Customers.AsNoTracking().ToListAsync();
+            return await dataContext.Customers.AsNoTracking().Include(c => c.Address).ToListAsync();
         }
 
         public virtual async Task<Customer> GetCustomerByTrackingNumber(string trackingNumber)
