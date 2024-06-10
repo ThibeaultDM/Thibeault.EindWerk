@@ -40,6 +40,24 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
         }
 
+        [HttpGet("GetCustomerByTrackingNumber")]
+        public async Task<IActionResult> GetCustomerTrackingNumber([FromBody] string input)
+        {
+            try
+            {
+                Customer customer = await repository.GetCustomerByTrackingNumber(input);
+
+                CreatedCustomer respons = mapper.Map<CreatedCustomer>(customer);
+
+                return Ok(respons);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPost("CreateCustomer")]
         // TODO look at tracking bug
         public async Task<IActionResult> CreateCustomerAsync([FromBody] CreateCustomer input)
@@ -79,7 +97,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 return BadRequest("Customer not found");
             }
 
-            customer = mapper.Map<Customer>(input);  
+            customer = mapper.Map<Customer>(input);
 
             // get that in the object for testing
             BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
