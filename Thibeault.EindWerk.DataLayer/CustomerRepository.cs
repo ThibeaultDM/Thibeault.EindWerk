@@ -14,11 +14,8 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// Creates a customer in the database with trackingNumber "K0" and returns an empty customer who you can assign values to.
-        /// Use it to ensure no duplicate id's in the database.
+        /// cfr <see cref="ICustomerRepository.CreateCustomerAsync"/>
         /// </summary>
-        /// <returns>An empty customer whom you can update to assign values</returns>
-        /// <exception cref="Exception"></exception>
         public virtual async Task<Customer> CreateCustomerAsync()
         {
             try
