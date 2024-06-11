@@ -13,7 +13,7 @@ namespace Thibeault.EindWerk.DataLayer
             this.dataContext = dataContext;
         }
 
-        public virtual async Task<Customer> AddCustomerAsync()
+        public virtual async Task<Customer> CreateCustomerAsync()
         {
             Customer customerToAdd;
 

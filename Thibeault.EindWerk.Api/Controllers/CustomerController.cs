@@ -97,7 +97,7 @@ namespace Thibeault.EindWerk.Api.Controllers
         {
             ObjectResult result;
 
-            Customer customer = await repository.AddCustomerAsync();
+            Customer customer = await repository.CreateCustomerAsync();
 
             // get customer ready for testing
             BO_Customer customerBo = mapper.Map<BO_Customer>(input);
@@ -135,34 +135,36 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             if (customer == null)
             {
-                return BadRequest("Customer not found");
-            }
-
-            // get that in the object for testing
-            BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
-
-            customerBo.FullName= input.FullName;
-            customerBo.Email = input.Email;
-
-            customerBo.Address = mapper.Map<Address>(input.Address);
-
-            if (customerBo.IsValid)
-            {
-                customer = mapper.Map<Customer>(customerBo);
-
-                await repository.UpdateCustomer(customer);
-
-                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
-                result = Ok(response);
+                result = BadRequest("Customer not found");
             }
             else
             {
-                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+                // get that in the object for testing
+                BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
 
-                result = BadRequest(response);
+                customerBo.FullName = input.FullName;
+                customerBo.Email = input.Email;
+
+                customerBo.Address = mapper.Map<Address>(input.Address);
+
+                if (customerBo.IsValid)
+                {
+                    customer = mapper.Map<Customer>(customerBo);
+
+                    await repository.UpdateCustomer(customer);
+
+                    CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                    result = Ok(response);
+                }
+                else
+                {
+                    CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                    result = BadRequest(response);
+                }
+
             }
-
             return result;
         }
     }

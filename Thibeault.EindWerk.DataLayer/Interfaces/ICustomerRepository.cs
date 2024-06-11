@@ -4,7 +4,7 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public interface ICustomerRepository
     {
-        Task<Customer> AddCustomerAsync();
+        Task<Customer> CreateCustomerAsync();
 
         Task<bool> DeleteCustomerAsync(string trackingNumber);
 
