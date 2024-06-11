@@ -1,7 +1,7 @@
-﻿int id = 99999;
-string trackingNumber = "K";
+﻿
+Foo trackingNumber = null;
 
-trackingNumber += id.ToString().PadLeft(4, '0');
+trackingNumber.MyProperty.Test = "id.ToString().PadLeft(4, '0')";
 
 Console.WriteLine(trackingNumber);
 Console.ReadLine();

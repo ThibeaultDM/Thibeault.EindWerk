@@ -8,9 +8,10 @@ namespace Thibeault.EindWerk.Objects
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string TrackingNumber { get; set; } = string.Empty;
-        public string FullName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string TrackingNumber { get; set; } 
+        public string FullName { get; set; } 
+        public string Email { get; set; }
         public Address Address { get; set; } = new();
+        public List<OrderHeader>? Orders { get; set; } = new();
     }
 }

@@ -12,10 +12,7 @@ namespace Thibeault.EindWerk.Objects
         public string Name { get; set; }
         public int Stock { get; set; }
         public int Reserved { get; set; }
+        public List<StockAction> StockActions { get; set; } = new();
 
-        /// <summary>
-        /// In euro
-        /// </summary>
-        public double PricePerUnit { get; set; }
     }
 }

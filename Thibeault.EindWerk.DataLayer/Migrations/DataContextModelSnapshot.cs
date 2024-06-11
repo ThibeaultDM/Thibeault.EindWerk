@@ -231,6 +231,43 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.ToTable("Customers", (string)null);
                 });
 
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+                {
+                    b.Property<int>("TrackingNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrackingNumber"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TrackingNumber");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("TrackingNumber")
+                        .IsUnique();
+
+                    b.ToTable("OrderHeaders", (string)null);
+                });
+
             modelBuilder.Entity("Thibeault.EindWerk.Objects.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -249,9 +286,6 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PricePerUnit")
-                        .HasColumnType("float");
 
                     b.Property<int>("Reserved")
                         .HasColumnType("int");
@@ -274,6 +308,46 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                         .IsUnique();
 
                     b.ToTable("Products", (string)null);
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.StockAction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Action")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrderHeaderTrackingNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderHeaderTrackingNumber");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("StockActions", (string)null);
                 });
 
             modelBuilder.Entity("Thibeault.EindWerk.Objects.User", b =>
@@ -330,9 +404,6 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -405,6 +476,49 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+                {
+                    b.HasOne("Thibeault.EindWerk.Objects.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.StockAction", b =>
+                {
+                    b.HasOne("Thibeault.EindWerk.Objects.OrderHeader", "OrderHeader")
+                        .WithMany("StockActions")
+                        .HasForeignKey("OrderHeaderTrackingNumber");
+
+                    b.HasOne("Thibeault.EindWerk.Objects.Product", "Product")
+                        .WithMany("StockActions")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderHeader");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+                {
+                    b.Navigation("StockActions");
+                });
+
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.Product", b =>
+                {
+                    b.Navigation("StockActions");
                 });
 #pragma warning restore 612, 618
         }
