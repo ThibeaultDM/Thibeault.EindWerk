@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
@@ -10,6 +11,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository repository;
@@ -38,6 +40,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPatch("GetCustomerByTrackingNumberAsync")]
         public async Task<IActionResult> GetCustomerTrackingNumberAsync([FromBody] string input)
         {
@@ -66,6 +69,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
         [HttpDelete("DeleteCustomerByTrackingNumber")]
         public async Task<IActionResult> DeleteCustomerTrackingNumberAsync([FromBody] string input)
         {
@@ -92,6 +96,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost("CreateCustomer")]
         public async Task<IActionResult> CreateCustomerAsync([FromBody] CreateCustomer input)
         {
@@ -127,6 +132,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             return result;
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPut("UpdateCustomer")]
         public async Task<IActionResult> UpdateCustomerAsync([FromBody] UpdateCustomer input)
         {

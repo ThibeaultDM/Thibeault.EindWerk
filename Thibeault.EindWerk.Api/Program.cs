@@ -4,6 +4,7 @@ using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using Thibeault.EindWerk.Api.Models;
 using Thibeault.EindWerk.DataLayer;
+using Thibeault.EindWerk.DataLayer.DataSeeding;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,5 +50,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetService<SeedDatabaseHelper>();
+    await SeedDatabaseHelper.SeedInitialUserAsync(scope.ServiceProvider);
+}
+
 
 app.Run();
