@@ -10,7 +10,8 @@ namespace Thibeault.EindWerk.Api.Models
     {
         public AutoMapperConfig()
         {
-            // todo look at custom mapping again
+            // todo look at custom mapping agai
+            // how to only map propertys that they share
 
             // Customer
             CreateMap<BO_Customer, Customer>().ReverseMap();
