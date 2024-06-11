@@ -12,7 +12,7 @@ using Thibeault.EindWerk.DataLayer;
 namespace Thibeault.EindWerk.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240611164047_Initialize")]
+    [Migration("20240611164227_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
