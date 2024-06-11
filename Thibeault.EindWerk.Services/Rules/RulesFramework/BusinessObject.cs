@@ -46,7 +46,7 @@ namespace Thibeault.EindWerk.Services.Rules.RulesFramework
                 {
                     if (!item.Passed)
                     {
-                        BrokenRules.Add(new BrokenRule(item.Message, item.PropertyName));
+                        BrokenRules.Add(new BrokenRule(item.PropertyName, item.Message));
                     }
                 }
             }
