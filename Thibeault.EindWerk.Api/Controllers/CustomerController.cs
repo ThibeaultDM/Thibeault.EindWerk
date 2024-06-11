@@ -34,9 +34,9 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 return Ok(respons);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -63,9 +63,9 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -90,9 +90,9 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -100,62 +100,23 @@ namespace Thibeault.EindWerk.Api.Controllers
         [HttpPost("CreateCustomer")]
         public async Task<IActionResult> CreateCustomerAsync([FromBody] CreateCustomer input)
         {
-            ObjectResult result;
-
-            Customer customer = await repository.CreateCustomerAsync();
-
-            // get customer ready for testing
-            BO_Customer customerBo = mapper.Map<BO_Customer>(input);
-
-            customerBo.Id = customer.Id;
-            // I don't allow the database to have a customer without knowing who or when it was created
-            customerBo.CreatedBy = customer.CreatedBy;
-            customerBo.CreatedOn = customer.CreatedOn;
-
-            if (customerBo.IsValid)
+            try
             {
-                customer = mapper.Map<Customer>(customerBo); ;
+                ObjectResult result;
 
-                await repository.UpdateCustomer(customer);
+                Customer customer = await repository.CreateCustomerAsync();
 
-                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+                // get customer ready for testing
+                BO_Customer customerBo = mapper.Map<BO_Customer>(input);
 
-                result = Ok(response);
-            }
-            else
-            {
-                CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
-                result = BadRequest(response);
-            }
-
-            return result;
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPut("UpdateCustomer")]
-        public async Task<IActionResult> UpdateCustomerAsync([FromBody] UpdateCustomer input)
-        {
-            ObjectResult result;
-            Customer customer = await repository.GetCustomerByTrackingNumberAsync(input.TrackingNumber);
-
-            if (customer == null)
-            {
-                result = BadRequest("Customer not found");
-            }
-            else
-            {
-                // get that in the object for testing
-                BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
-
-                customerBo.FullName = input.FullName;
-                customerBo.Email = input.Email;
-
-                customerBo.Address = mapper.Map<Address>(input.Address);
+                customerBo.Id = customer.Id;
+                // I don't allow the database to have a customer without knowing who or when it was created
+                customerBo.CreatedBy = customer.CreatedBy;
+                customerBo.CreatedOn = customer.CreatedOn;
 
                 if (customerBo.IsValid)
                 {
-                    customer = mapper.Map<Customer>(customerBo);
+                    customer = mapper.Map<Customer>(customerBo); ;
 
                     await repository.UpdateCustomer(customer);
 
@@ -170,8 +131,64 @@ namespace Thibeault.EindWerk.Api.Controllers
                     result = BadRequest(response);
                 }
 
+                return result;
+
             }
-            return result;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPut("UpdateCustomer")]
+        public async Task<IActionResult> UpdateCustomerAsync([FromBody] UpdateCustomer input)
+        {
+            try
+            {
+                ObjectResult result;
+                Customer customer = await repository.GetCustomerByTrackingNumberAsync(input.TrackingNumber);
+
+                if (customer == null)
+                {
+                    result = BadRequest("Customer not found");
+                }
+                else
+                {
+                    // get that in the object for testing
+                    BO_Customer customerBo = mapper.Map<BO_Customer>(customer);
+
+                    customerBo.FullName = input.FullName;
+                    customerBo.Email = input.Email;
+
+                    customerBo.Address = mapper.Map<Address>(input.Address);
+
+                    if (customerBo.IsValid)
+                    {
+                        customer = mapper.Map<Customer>(customerBo);
+
+                        await repository.UpdateCustomer(customer);
+
+                        CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                        result = Ok(response);
+                    }
+                    else
+                    {
+                        CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
+
+                        result = BadRequest(response);
+                    }
+
+                }
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -4,6 +4,13 @@ namespace Thibeault.EindWerk.Services.Rules
 {
     public class CustomerRules : Rule
     {
+        /// <summary>
+        /// Generates a trackingNumber K000 format and assigns it
+        /// </summary>
+        /// <param name="propertyCustemorId"></param>
+        /// <param name="id"></param>
+        /// <param name="trackingNumber"></param>
+        /// <returns></returns>
         public CustomerRules GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
         {
             PropertyName = propertyCustemorId;
