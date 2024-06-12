@@ -25,8 +25,7 @@ namespace Thibeault.EindWerk.DataLayer
                 // I let the database deal with making sure it's unique
                 customerToAdd.TrackingNumber = "K0";
 
-                customerToAdd.CreatedOn = DateTime.Now;
-                customerToAdd.CreatedBy = Environment.UserName;
+                customerToAdd = await Create(customerToAdd);
 
                 if (customerToAdd.Id == 0)
                 {
@@ -89,8 +88,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                customerToUpdate.UpdatedOn = DateTime.Now;
-                customerToUpdate.UpdatedBy = Environment.UserName;
+                customerToUpdate = await Update(customerToUpdate);
 
                 var entry = CustomerTable().Attach(customerToUpdate);
                 entry.State = EntityState.Modified;
