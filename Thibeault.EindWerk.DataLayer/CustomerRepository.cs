@@ -18,30 +18,24 @@ namespace Thibeault.EindWerk.DataLayer
         /// </summary>
         public virtual async Task<Customer> CreateCustomerAsync()
         {
+            // should an invalid customer have been created it will have a tracking Id of "K0"
+            // No need to have it keep taking up space
+            Customer customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
+
             try
             {
-                Customer customerToAdd;
+                // to create a customer I need a unique Id from which I generate a unique tracking number.
+                // I let the database deal with making sure it's unique
+                customerToAdd.TrackingNumber = "K0";
 
-                // should an invalid customer have been created it will have a tracking Id of "K0"
-                // No need to have it keep taking up space
+                customerToAdd.CreatedOn = DateTime.Now;
+                customerToAdd.CreatedBy = Environment.UserName;
+
+                // don't make async creates a tracking bug
+                dataContext.Customers.Add(customerToAdd);
+                await SaveAsync();
+
                 customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
-
-                if (customerToAdd == null)
-                {
-                    // to create a customer I need a unique Id from which I generate a unique tracking number.
-                    // I let the database deal with making sure it's unique
-                    customerToAdd = new();
-
-                    customerToAdd.TrackingNumber = "K0";
-
-                    customerToAdd.CreatedOn = DateTime.Now;
-                    customerToAdd.CreatedBy = Environment.UserName;
-
-                    await dataContext.Customers.AddAsync(customerToAdd);
-                    await SaveAsync();
-
-                    customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
-                }
 
                 return customerToAdd;
             }
@@ -50,20 +44,16 @@ namespace Thibeault.EindWerk.DataLayer
                 string errorMessage = "-CreateCustomerAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
-
         }
 
         /// <summary>
-        /// Gets Customer and their adress
+        /// cfr <see cref="ICustomerRepository.GetCustomersAsync"/>
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         public virtual async Task<List<Customer>> GetCustomersAsync()
         {
             try
             {
                 return await dataContext.Customers.AsNoTracking().Include(c => c.Address).ToListAsync();
-
             }
             catch (Exception ex)
             {
@@ -79,23 +69,20 @@ namespace Thibeault.EindWerk.DataLayer
                 // I don't use singleOrDefault for possible edge case of multiple invalid ("K0") customers existing
                 Customer customer = await dataContext.Customers
                                                      .AsNoTracking().Include(c => c.Address)
-                                                     .FirstOrDefaultAsync(c => c.TrackingNumber == trackingNumber);
+                                                     .FirstOrDefaultAsync(c => c.TrackingNumber == trackingNumber)
+                                                     ?? (trackingNumber == "K0" ? new() : throw new Exception("Customer not found"));
                 return customer;
-
             }
             catch (Exception ex)
             {
-                string errorMessage =$"{trackingNumber}-GetCustomerByTrackingNumberAsync-" + ex.Message;
+                string errorMessage = $"{trackingNumber}-GetCustomerByTrackingNumberAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
 
         /// <summary>
-        /// Updates the UpdatedOn and UpdatedBy props as well
+        /// cfr <see cref="ICustomerRepository.GetCustomersAsync"/>
         /// </summary>
-        /// <param name="customerToUpdate"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         public virtual async Task UpdateCustomer(Customer customerToUpdate)
         {
             try
@@ -106,7 +93,6 @@ namespace Thibeault.EindWerk.DataLayer
                 var entry = dataContext.Customers.Attach(customerToUpdate);
                 entry.State = EntityState.Modified;
                 await SaveAsync();
-
             }
             catch (Exception ex)
             {
@@ -117,42 +103,30 @@ namespace Thibeault.EindWerk.DataLayer
 
         public virtual async Task<bool> DeleteCustomerAsync(string trackingNumber)
         {
+            bool isDeleted;
+
+            Customer customerToDelete = await GetCustomerByTrackingNumberAsync(trackingNumber);
+
             try
             {
-                bool isDeleted;
-                Customer customerToDelete = await GetCustomerByTrackingNumberAsync(trackingNumber);
+                dataContext.Customers.Remove(customerToDelete);
+                await SaveAsync();
 
-                if (customerToDelete != null)
-                {
-                    try
-                    {
-                        dataContext.Customers.Remove(customerToDelete);
-                        await SaveAsync();
-                        isDeleted = true;
-                    }
-                    catch (Exception)
-                    {
-                        isDeleted = false;
-                    }
-                }
-                else
-                {
-                    isDeleted = false;
-                }
-
-                return isDeleted;
-
+                isDeleted = true;
             }
             catch (Exception ex)
             {
                 string errorMessage = $"{trackingNumber}-DeleteCustomerAsync-" + ex.Message;
+                isDeleted = false;
                 throw new Exception(errorMessage);
             }
+
+            return isDeleted;
         }
 
         #region Helper methodes
 
-        // todo look up if I can make DisposeAsync private for DI-container 
+        // todo look up if I can make DisposeAsync private for DI-container
         public async Task DisposeAsync()
         {
             await DisposeAsync(true);

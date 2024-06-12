@@ -13,6 +13,5 @@ namespace Thibeault.EindWerk.Objects
         public int Stock { get; set; }
         public int Reserved { get; set; }
         public List<StockAction> StockActions { get; set; } = new();
-
     }
 }

@@ -25,6 +25,5 @@ namespace Thibeault.EindWerk.Api.Models
             // Address
             CreateMap<Address, AddressDto>().ReverseMap();
         }
-                 
     }
 }

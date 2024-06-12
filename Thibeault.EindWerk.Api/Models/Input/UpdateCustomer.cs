@@ -1,6 +1,4 @@
-﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
-
-namespace Thibeault.EindWerk.Api.Models.Input
+﻿namespace Thibeault.EindWerk.Api.Models.Input
 {
     public class UpdateCustomer
     {

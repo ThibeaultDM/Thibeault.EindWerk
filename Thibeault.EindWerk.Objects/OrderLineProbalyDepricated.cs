@@ -4,6 +4,7 @@
     {
         // more in github isue
         public OrderHeader OrderHeader { get; set; }
+
         public StockAction StockAction { get; set; }
     }
 }

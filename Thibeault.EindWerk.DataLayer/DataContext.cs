@@ -24,6 +24,7 @@ namespace Thibeault.EindWerk.DataLayer
         public DbSet<Address> Addresss { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
+
         //public DbSet<OrderLineProbalyDepricated> OrderLines { get; set; }
         public DbSet<StockAction> StockActions { get; set; }
 
@@ -49,7 +50,6 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Address>().HasIndex(x => x.Id).IsUnique();
             builder.Entity<Customer>().HasIndex(x => x.Id).IsUnique();
             builder.Entity<OrderHeader>().HasIndex(x => x.TrackingNumber).IsUnique();
-
 
             builder.Entity<Customer>().HasMany(c => c.Orders).WithOne(oh => oh.Customer);
             builder.Entity<OrderHeader>().HasMany(oh => oh.StockActions).WithOne(ol => ol.OrderHeader);

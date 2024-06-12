@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Thibeault.EindWerk.Objects.Enums;
 
 namespace Thibeault.EindWerk.Objects
 {
@@ -20,13 +14,12 @@ namespace Thibeault.EindWerk.Objects
         /// Automaticly set
         /// </summary>
         public Enums.Action Action { get; set; }
-        
+
         /// <summary>
         /// What apples pears!? Amount is amiguos because products are unknow
         /// </summary>
         public int Amount { get; set; }
 
         public OrderHeader? OrderHeader { get; set; }
-
     }
 }

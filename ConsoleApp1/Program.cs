@@ -1,5 +1,4 @@
-﻿
-Foo trackingNumber = null;
+﻿Foo trackingNumber = null;
 
 trackingNumber.MyProperty.Test = "id.ToString().PadLeft(4, '0')";
 
