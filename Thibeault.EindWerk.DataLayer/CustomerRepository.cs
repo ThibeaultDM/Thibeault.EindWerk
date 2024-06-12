@@ -4,13 +4,10 @@ using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : BaseRepository, ICustomerRepository
     {
-        private readonly IDataContext dataContext;
-
-        public CustomerRepository(IDataContext dataContext)
+        public CustomerRepository(IDataContext dataContext) : base(dataContext)
         {
-            this.dataContext = dataContext;
         }
 
         /// <summary>
@@ -33,11 +30,11 @@ namespace Thibeault.EindWerk.DataLayer
 
                 if (customerToAdd.Id == 0)
                 {
-                    await dataContext.Customers.AddAsync(customerToAdd);
+                    await CustomerTable().AddAsync(customerToAdd);
                     await SaveAsync();
-                    
+
                     // To prevent tracking bug
-                    dataContext.Customers.Entry(customerToAdd).State = EntityState.Detached;
+                    CustomerTable().Entry(customerToAdd).State = EntityState.Detached;
 
                     customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
                 }
@@ -58,7 +55,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                return await dataContext.Customers.AsNoTracking().Include(c => c.Address).ToListAsync();
+                return await CustomerTable().AsNoTracking().Include(c => c.Address).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -72,7 +69,7 @@ namespace Thibeault.EindWerk.DataLayer
             try
             {
                 // I don't use singleOrDefault for possible edge case of multiple invalid ("K0") customers existing
-                Customer customer = await dataContext.Customers
+                Customer customer = await CustomerTable()
                                                      .AsNoTracking().Include(c => c.Address)
                                                      .FirstOrDefaultAsync(c => c.TrackingNumber == trackingNumber)
                                                      ?? (trackingNumber == "K0" ? new() : throw new Exception("Customer not found"));
@@ -95,7 +92,7 @@ namespace Thibeault.EindWerk.DataLayer
                 customerToUpdate.UpdatedOn = DateTime.Now;
                 customerToUpdate.UpdatedBy = Environment.UserName;
 
-                var entry = dataContext.Customers.Attach(customerToUpdate);
+                var entry = CustomerTable().Attach(customerToUpdate);
                 entry.State = EntityState.Modified;
                 await SaveAsync();
             }
@@ -114,7 +111,7 @@ namespace Thibeault.EindWerk.DataLayer
 
             try
             {
-                dataContext.Customers.Remove(customerToDelete);
+                CustomerTable().Remove(customerToDelete);
                 await SaveAsync();
 
                 isDeleted = true;
@@ -129,34 +126,12 @@ namespace Thibeault.EindWerk.DataLayer
             return isDeleted;
         }
 
-        #region Helper methodes
-
-        // todo look up if I can make DisposeAsync private for DI-container
-        public async Task DisposeAsync()
+        #region Helper Methodes
+        private DbSet<Customer> CustomerTable()
         {
-            await DisposeAsync(true);
-            GC.SuppressFinalize(this);
+            return dataContext.Customers;
         }
 
-        private bool disposed = false;
-
-        protected virtual async Task DisposeAsync(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    await dataContext.DisposeAsync();
-                }
-            }
-            this.disposed = true;
-        }
-
-        private async Task SaveAsync()
-        {
-            await dataContext.SaveChangesAsync();
-        }
-
-        #endregion Helper methodes
+        #endregion
     }
 }

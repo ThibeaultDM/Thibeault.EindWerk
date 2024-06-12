@@ -15,7 +15,5 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         ValueTask DisposeAsync();
 
         Task<int> SaveChangesAsync();
-
-        int SaveChanges();
     }
 }
