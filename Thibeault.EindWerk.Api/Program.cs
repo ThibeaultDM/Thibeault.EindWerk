@@ -17,7 +17,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // DataLayer
 string connectionString = builder.Configuration.GetConnectionString("Thibeault");
 
-builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer")).EnableSensitiveDataLogging());
+builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
+                                                               b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
+                                                                     .EnableSensitiveDataLogging());
+
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Services

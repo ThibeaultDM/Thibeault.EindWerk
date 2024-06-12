@@ -18,12 +18,12 @@ namespace Thibeault.EindWerk.DataLayer
         /// </summary>
         public virtual async Task<Customer> CreateCustomerAsync()
         {
-            // should an invalid customer have been created it will have a tracking Id of "K0"
-            // No need to have it keep taking up space
-            Customer customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
-
             try
             {
+                // should an invalid customer have been created it will have a tracking Id of "K0"
+                // No need to have it keep taking up space
+                Customer customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
+
                 // to create a customer I need a unique Id from which I generate a unique tracking number.
                 // I let the database deal with making sure it's unique
                 customerToAdd.TrackingNumber = "K0";
@@ -31,11 +31,14 @@ namespace Thibeault.EindWerk.DataLayer
                 customerToAdd.CreatedOn = DateTime.Now;
                 customerToAdd.CreatedBy = Environment.UserName;
 
-                // don't make async creates a tracking bug
-                dataContext.Customers.Add(customerToAdd);
-                await SaveAsync();
+                if (customerToAdd.Id == 0)
+                {
+                    // don't make async creates a tracking bug
+                    dataContext.Customers.Add(customerToAdd);
+                    dataContext.SaveChanges();
 
-                customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
+                    customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
+                }
 
                 return customerToAdd;
             }

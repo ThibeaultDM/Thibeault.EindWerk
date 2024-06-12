@@ -30,6 +30,8 @@ namespace Thibeault.EindWerk.DataLayer
 
         // Wraping DbContext.SaveChangesAsync method
         public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
+        public override int SaveChanges() => base.SaveChanges();
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
