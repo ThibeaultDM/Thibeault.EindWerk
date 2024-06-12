@@ -33,9 +33,11 @@ namespace Thibeault.EindWerk.DataLayer
 
                 if (customerToAdd.Id == 0)
                 {
-                    // don't make async creates a tracking bug
-                    dataContext.Customers.Add(customerToAdd);
-                    dataContext.SaveChanges();
+                    await dataContext.Customers.AddAsync(customerToAdd);
+                    await SaveAsync();
+                    
+                    // To prevent tracking bug
+                    dataContext.Customers.Entry(customerToAdd).State = EntityState.Detached;
 
                     customerToAdd = await GetCustomerByTrackingNumberAsync("K0");
                 }
