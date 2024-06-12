@@ -55,7 +55,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                return await CustomerTable().AsNoTracking().Include(c => c.Address).ToListAsync();
+                return await CustomerTable().Include(c => c.Address).ToListAsync();
             }
             catch (Exception ex)
             {
