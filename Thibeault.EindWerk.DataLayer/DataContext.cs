@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
@@ -26,7 +27,7 @@ namespace Thibeault.EindWerk.DataLayer
         public DbSet<IdentityUser> Users { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
 
-        //public DbSet<OrderLineProbalyDepricated> OrderLines { get; set; }
+        //public DbSet<OrderLineProbablyDeprecated> OrderLines { get; set; }
         public DbSet<StockAction> StockActions { get; set; }
 
         // Wraping DbContext.SaveChangesAsync method
@@ -44,7 +45,7 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Address>().ToTable("Adresses");
             builder.Entity<IdentityUser>().ToTable("Users");
             builder.Entity<OrderHeader>().ToTable("OrderHeaders");
-            //builder.Entity<OrderLineProbalyDepricated>().ToTable("OrderLines");
+            //builder.Entity<OrderLineProbablyDeprecated>().ToTable("OrderLines");
             builder.Entity<StockAction>().ToTable("StockActions");
 
             builder.Entity<Product>().HasIndex(x => x.Id).IsUnique();
@@ -54,7 +55,7 @@ namespace Thibeault.EindWerk.DataLayer
 
             builder.Entity<Customer>().HasMany(c => c.Orders).WithOne(oh => oh.Customer);
             builder.Entity<OrderHeader>().HasMany(oh => oh.StockActions).WithOne(ol => ol.OrderHeader);
-            //builder.Entity<OrderLineProbalyDepricated>().HasOne(ol => ol.StockAction).WithOne(sa => sa.OrderLineProbalyDepricated);
+            //builder.Entity<OrderLineProbablyDeprecated>().HasOne(ol => ol.StockAction).WithOne(sa => sa.OrderLineProbablyDeprecated);
             builder.Entity<Product>().HasMany(p => p.StockActions).WithOne(s => s.Product);
 
             base.OnModelCreating(builder);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
@@ -33,62 +33,39 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IStockActionRepository.DeleteStockActionAsync(int)"/>
+        /// cfr <see cref="IStockActionRepository.DeleteStockActionAsync(StockAction)"/>
         /// </summary>
 
-        public virtual async Task DeleteProductAsync(int serialNumber)
+        public virtual async Task DeleteStockActionAsync(StockAction stockAction)
         {
-            StockAction productToDelete = await GetProductBySerialNumberAsync(serialNumber);
-
             try
             {
-                ProductTable().Remove(productToDelete);
+                ProductTable().Remove(stockAction);
                 await SaveAsync();
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{serialNumber}-DeleteProductAsync-" + ex.Message;
+                string errorMessage = $"{stockAction}-DeleteStockActionAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
 
         /// <summary>
-        /// cfr <see cref="IProductRepository.GetProductBySerialNumberAsync(int)"/>
+        /// cfr <see cref="IStockActionRepository.UpdateStockAction(StockAction)(StockAction)"/>
         /// </summary>
-        public virtual async Task<StockAction> GetProductBySerialNumberAsync(int serialNumber)
+        public virtual async Task UpdateStockAction(StockAction stockActionToUpdate)
         {
             try
             {
-                // I don't use singleOrDefault for possible edge case of multiple invalid (0) products existing
-                StockAction customer = await ProductTable()
-                                                     .AsNoTracking().Include(c => c.StockActions)
-                                                     .FirstOrDefaultAsync(c => c.SerialNumber == serialNumber)
-                                                     ?? (serialNumber == 0 ? new() : throw new Exception("Product not found"));
-                return customer;
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = $"{serialNumber}-GetProductBySerialNumberAsync-" + ex.Message;
-                throw new Exception(errorMessage);
-            }
-        }
+                stockActionToUpdate = await Update(stockActionToUpdate);
 
-        /// <summary>
-        /// cfr <see cref="IProductRepository.UpdateProduct(StockAction)"/>
-        /// </summary>
-        public virtual async Task UpdateProduct(StockAction productToUpdate)
-        {
-            try
-            {
-                productToUpdate = await Update(productToUpdate);
-
-                var entry = ProductTable().Attach(productToUpdate);
+                var entry = ProductTable().Attach(stockActionToUpdate);
                 entry.State = EntityState.Modified;
                 await SaveAsync();
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{productToUpdate.SerialNumber}-UpdateProduct-" + ex.Message;
+                string errorMessage = $"{stockActionToUpdate}-UpdateStockAction-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }

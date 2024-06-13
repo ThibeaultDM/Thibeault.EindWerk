@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Thibeault.EindWerk.Objects
+namespace Thibeault.EindWerk.Objects.DataObjects
 {
     public class Customer : BaseObject
     {
@@ -12,6 +12,11 @@ namespace Thibeault.EindWerk.Objects
         public string FullName { get; set; } = string.Empty; // To prevent cannot save null exception on creation
         public string Email { get; set; } = string.Empty;
         public Address Address { get; set; } = new();
-        public List<OrderHeader>? Orders { get; set; } = new(); // So I can do .Add imeditly
+        public List<OrderHeader>? Orders { get; set; } = new(); // So I can do .Add immediately
+
+        public override string ToString()
+        {
+            return "Customer: " + FullName + ": " + TrackingNumber.ToString();
+        }
     }
 }

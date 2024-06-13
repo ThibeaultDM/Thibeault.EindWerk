@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {

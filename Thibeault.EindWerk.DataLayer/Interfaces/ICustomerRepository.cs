@@ -1,4 +1,4 @@
-﻿using Thibeault.EindWerk.Objects;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
@@ -12,14 +12,14 @@ namespace Thibeault.EindWerk.DataLayer
         Task<Customer> CreateCustomerAsync();
 
         /// <summary>
-        /// Deletes Customer
+        /// Deletes Customer and their address
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         Task DeleteCustomerAsync(string trackingNumber);
 
         /// <summary>
-        /// Deletes Customer and their adress
+        /// Gets a Customer and their address
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>

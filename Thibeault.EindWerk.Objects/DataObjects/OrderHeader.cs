@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Thibeault.EindWerk.Objects.Enums;
 
-namespace Thibeault.EindWerk.Objects
+namespace Thibeault.EindWerk.Objects.DataObjects
 {
     public class OrderHeader : BaseObject
     {
@@ -12,11 +12,16 @@ namespace Thibeault.EindWerk.Objects
         public Customer Customer { get; set; }
 
         /// <summary>
-        /// Automaticly set
+        /// Automatically set
         /// </summary>
         public Status Status { get; set; } = Status.New;
 
-        //public List<OrderLineProbalyDepricated> OrderLines { get; set; } = new();
+        //public List<OrderLineProbablyDeprecated> OrderLines { get; set; } = new();
         public List<StockAction> StockActions { get; set; } = new();
+
+        public override string ToString()
+        {
+            return "OrderHeader: "+ TrackingNumber.ToString() + ", " + Customer.ToString() + ", " + Status.ToString();
+        }
     }
 }

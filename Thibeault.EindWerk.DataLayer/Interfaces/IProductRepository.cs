@@ -1,4 +1,4 @@
-﻿using Thibeault.EindWerk.Objects;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
@@ -12,7 +12,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         Task<Product> AddNewProductAsync();
 
         /// <summary>
-        /// Deletes Product
+        /// Deletes a Product
         /// </summary>
         ///  <param name="serialNumber"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         Task DeleteProductAsync(int serialNumber);
 
         /// <summary>
-        /// Deletes Products
+        /// Gets a product
         /// </summary>
         ///  <param name="serialNumber"></param>
         /// <returns></returns>

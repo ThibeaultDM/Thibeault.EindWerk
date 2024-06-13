@@ -1,4 +1,4 @@
-﻿using Thibeault.EindWerk.Objects;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
@@ -8,25 +8,17 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// Creates a stockActionToUpdate in the database with serialNumber "0" and returns an empty stockAction ToUpdate who you can update.
         /// Use it to ensure no duplicate serialNumbers in the database.
         /// </summary>
+        ///  <param name="stockAction"></param>
         /// <returns>An empty stockActionToUpdate whom you can update to assign values</returns>
         Task AddNewStockActionAsync(StockAction stockAction);
 
         /// <summary>
-        /// Deletes stockActionToUpdate
+        /// Deletes stockAction
         /// </summary>
-        ///  <param name="serialNumber"></param>
+        ///  <param name="stockAction"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task DeleteStockActionAsync(int serialNumber);
-
-        /// <summary>
-        /// Deletes stockActionToUpdate
-        /// </summary>
-        ///  <param name="serialNumber"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        Task<StockAction> GetStockActionBySerialNumberAsync(int serialNumber);
-        Task<List<StockAction>> GetStockActionsAsync();
+        Task DeleteStockActionAsync(StockAction stockAction);
 
         /// <summary>
         /// Updates the UpdatedOn and UpdatedBy props as well

@@ -5,6 +5,7 @@ using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Controllers

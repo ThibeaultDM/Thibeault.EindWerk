@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 using Thibeault.EindWerk.Objects.Enums;
 using Thibeault.EindWerk.Services.Rules.RulesFramework;
 

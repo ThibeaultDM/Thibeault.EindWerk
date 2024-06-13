@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Thibeault.EindWerk.Services
+namespace Thibeault.EindWerk.Services.Rules
 {
     public class StockActionRules
     {

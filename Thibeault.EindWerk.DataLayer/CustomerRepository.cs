@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Objects;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
