@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
+using Thibeault.EindWerk.Api.Helper;
 using Thibeault.EindWerk.Api.Models;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 #region Dependency Injection
 
@@ -20,6 +21,10 @@ string connectionString = builder.Configuration.GetConnectionString("Thibeault")
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
                                                                b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
                                                                      .EnableSensitiveDataLogging());
+//register identity core 
+builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
@@ -27,6 +32,48 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Api
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+builder.Services.AddScoped<JwtHelper>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:7215", "https://google.com")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            RequireExpirationTime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:Key"])),
+            ClockSkew = TimeSpan.Zero 
+
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var token = context.HttpContext.Request.Cookies["access_token"];
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Token = token;
+                    return Task.CompletedTask;
+                }
+                return Task.CompletedTask;
+            }
+        };
+    });
 
 #endregion Dependency Injection
 
@@ -49,8 +96,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
+app.UseAuthentication();  //the middleware order must like here
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+
+});
 app.MapControllers();
 
 app.Run();

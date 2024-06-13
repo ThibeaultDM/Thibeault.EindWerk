@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
@@ -10,6 +11,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository repository;
@@ -70,7 +72,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             try
             {
-                bool IsDeleted = await repository.DeleteCustomerAsync(input);
+                await repository.DeleteCustomerAsync(input);
 
                 result = Ok("Customer is deleted");
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
@@ -10,7 +11,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         DbSet<Customer> Customers { get; set; }
 
         DbSet<Address> Addresss { get; set; }
-        DbSet<User> Users { get; set; }
+        DbSet<IdentityUser> Users { get; set; }
 
         ValueTask DisposeAsync();
 

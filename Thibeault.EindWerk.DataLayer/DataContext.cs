@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
-    public class DataContext : IdentityDbContext<User>, IDataContext
+    public class DataContext : IdentityDbContext<IdentityUser>, IDataContext
     {
         #region Constructors
 
@@ -22,7 +23,7 @@ namespace Thibeault.EindWerk.DataLayer
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresss { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<IdentityUser> Users { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
 
         //public DbSet<OrderLineProbalyDepricated> OrderLines { get; set; }
@@ -41,7 +42,7 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Product>().ToTable("Products");
             builder.Entity<Customer>().ToTable("Customers");
             builder.Entity<Address>().ToTable("Adresses");
-            builder.Entity<User>().ToTable("Users");
+            builder.Entity<IdentityUser>().ToTable("Users");
             builder.Entity<OrderHeader>().ToTable("OrderHeaders");
             //builder.Entity<OrderLineProbalyDepricated>().ToTable("OrderLines");
             builder.Entity<StockAction>().ToTable("StockActions");
