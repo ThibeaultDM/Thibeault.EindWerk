@@ -4,7 +4,7 @@ using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.Objects;
 using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
-namespace Thibeault.EindWerk.Api.Models
+namespace Thibeault.EindWerk.Api.Helper
 {
     public class AutoMapperConfig : Profile
     {

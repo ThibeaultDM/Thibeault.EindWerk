@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Thibeault.EindWerk.Api.Helper;
-using Thibeault.EindWerk.Api.Models;
 using Thibeault.EindWerk.DataLayer;
+using Thibeault.EindWerk.DataLayer.DataSeeding;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 #region Dependency Injection
 
@@ -21,7 +19,7 @@ string connectionString = builder.Configuration.GetConnectionString("Thibeault")
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
                                                                b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
                                                                      .EnableSensitiveDataLogging());
-//register identity core 
+//register identity core
 builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DataContext>();
@@ -57,8 +55,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             RequireExpirationTime = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:Key"])),
-            ClockSkew = TimeSpan.Zero 
-
+            ClockSkew = TimeSpan.Zero
         };
         options.Events = new JwtBearerEvents
         {
@@ -104,9 +101,14 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-
 });
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetService<SeedDatabaseHelper>();
+    await SeedDatabaseHelper.SeedRolesAndAdminAsync(scope.ServiceProvider);
+}
 
 app.Run();

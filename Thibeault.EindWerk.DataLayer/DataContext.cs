@@ -30,7 +30,7 @@ namespace Thibeault.EindWerk.DataLayer
         public DbSet<StockAction> StockActions { get; set; }
 
         // Wraping DbContext.SaveChangesAsync method
-        public Task<int> SaveChangesAsync() => base.SaveChangesAsync();       
+        public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

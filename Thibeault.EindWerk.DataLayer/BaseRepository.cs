@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Thibeault.EindWerk.DataLayer.Interfaces;
+﻿using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
 
 namespace Thibeault.EindWerk.DataLayer
@@ -66,7 +65,5 @@ namespace Thibeault.EindWerk.DataLayer
         {
             await dataContext.SaveChangesAsync();
         }
-
-
     }
 }

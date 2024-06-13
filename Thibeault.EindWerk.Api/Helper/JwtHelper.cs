@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 
 namespace Thibeault.EindWerk.Api.Helper
@@ -13,9 +12,9 @@ namespace Thibeault.EindWerk.Api.Helper
         private const int EXPIRATION_MINUTES = 5;
 
         private readonly IConfiguration _configuration;
+
         public JwtHelper(IConfiguration configuration)
         {
-
             _configuration = configuration;
         }
 
@@ -38,7 +37,6 @@ namespace Thibeault.EindWerk.Api.Helper
             };
         }
 
-
         private JwtSecurityToken CreateJwtToken(Claim[] claims, SigningCredentials credentials, DateTime expiration) => new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
@@ -58,9 +56,9 @@ namespace Thibeault.EindWerk.Api.Helper
                new Claim(JwtRegisteredClaimNames.Iat, unixTimeSeconds.ToString()),
                new Claim(ClaimTypes.NameIdentifier, user.Id),
                new Claim(ClaimTypes.Name, user.UserName),
-               new Claim(ClaimTypes.Email, user.Email),
             };
         }
+
         private SigningCredentials CreateSigningCredentials() => new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])), SecurityAlgorithms.HmacSha256);
     }
 }

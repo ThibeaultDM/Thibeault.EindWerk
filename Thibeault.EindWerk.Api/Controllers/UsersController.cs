@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Helper;
 using Thibeault.EindWerk.Api.Models.Input;
-using Thibeault.EindWerk.Objects;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Thibeault.EindWerk.Api.Controllers
 {
@@ -21,15 +19,16 @@ namespace Thibeault.EindWerk.Api.Controllers
             this.jwtHelper = jwtHelper;
         }
 
-        //registreren van user 
-        [HttpPost]
+        //registreren van user
+        [HttpPost("Register")]
+        [Authorize]
         public async Task<IActionResult> CreateAsync(CreateUser userDto)
         {
+            // todo System.InvalidOperationException: No route matches the supplied values?
             if (!ModelState.IsValid && userDto.Password == userDto.PasswordConfirm)
             {
                 return BadRequest(ModelState);
             }
-
             var result = await userManager.CreateAsync(new IdentityUser()
             {
                 UserName = userDto.UserName,
@@ -73,8 +72,93 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             //generate JWT TOKEN
             return Ok(token);
-
         }
 
+        [HttpDelete("DeleteUser")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUserAsync(string userName)
+        {
+            ObjectResult result;
+
+            try
+            {
+                IdentityUser user = await userManager.FindByNameAsync(userName);
+
+                if (user != null)
+                {
+                    IdentityResult success = await userManager.DeleteAsync(user);
+
+                    if (success.Succeeded)
+                    {
+                        result = Ok("User Deleted");
+                    }
+                    else
+                    {
+                        result = BadRequest("Unknown error");
+                    }
+                }
+                else
+                {
+                    result = BadRequest("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = BadRequest(ex.Message);
+            }
+
+            return result;
+        }
+
+        [HttpPut("UpdateUser")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUserAsync(string userName, Login userToUpdate)
+        {
+            ObjectResult result;
+
+            try
+            {
+                IdentityUser user = await userManager.FindByNameAsync(userName);
+
+                if (user != null)
+                {
+                    // todo Sometimes succeeds in deleting and passes on not succeeded
+                    IdentityResult success = await userManager.DeleteAsync(user);
+
+                    if (success.Succeeded)
+                    {
+                        IdentityUser createUser = new()
+                        {
+                            UserName = userToUpdate.UserName,
+                        };
+
+                        success = await userManager.CreateAsync(createUser, userToUpdate.PassWord);
+
+                        if (success.Succeeded)
+                        {
+                            result = Ok("User updated");
+                        }
+                        else
+                        {
+                            result = BadRequest("Unknown error");
+                        }
+                    }
+                    else
+                    {
+                        result = BadRequest("Unknown error");
+                    }
+                }
+                else
+                {
+                    result = BadRequest("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = BadRequest(ex.Message);
+            }
+
+            return result;
+        }
     }
 }
