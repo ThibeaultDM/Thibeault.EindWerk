@@ -7,13 +7,13 @@ namespace Thibeault.EindWerk.Services.Rules
         /// <summary>
         /// Generates a trackingNumber K000 format and assigns it
         /// </summary>
-        /// <param name="propertyCustemorId"></param>
+        /// <param name="custemorTrackingNumber"></param>
         /// <param name="id"></param>
         /// <param name="trackingNumber"></param>
         /// <returns></returns>
-        public CustomerRules GenerateTrackingNumber(string propertyCustemorId, int id, out string trackingNumber)
+        public CustomerRules GenerateTrackingNumber(string custemorTrackingNumber, int id, out string trackingNumber)
         {
-            PropertyName = propertyCustemorId;
+            PropertyName = custemorTrackingNumber;
             trackingNumber = "K";
 
             try
@@ -35,9 +35,16 @@ namespace Thibeault.EindWerk.Services.Rules
             return this;
         }
 
-        public CustomerRules ValiditieTrackingNumber(string propertyCustomerId, int id, string trackingNumber)
+        /// <summary>
+        /// Validates a trackingNumber
+        /// </summary>
+        /// <param name="custemorTrackingNumber"></param>
+        /// <param name="id"></param>
+        /// <param name="trackingNumber"></param>
+        /// <returns></returns>
+        public CustomerRules ValiditieTrackingNumber(string custemorTrackingNumber, int id, string trackingNumber)
         {
-            PropertyName = propertyCustomerId;
+            PropertyName = custemorTrackingNumber;
 
             try
             {

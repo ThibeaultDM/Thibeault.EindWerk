@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Objects.Enums;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
 using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
 namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
@@ -29,10 +23,14 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 
         public override bool AddBusinessRules()
         {
+            Rules.Add(new StockActionRules().IsRequired(nameof(Id), Id));
+            Rules.Add(new StockActionRules().IsRequired(nameof(Product), Product));
+            Rules.Add(new StockActionRules().IsRequired(nameof(Action), Action));
+            Rules.Add(new StockActionRules().IsRequired(nameof(Amount), Amount));
+
+            Rules.Add(new StockActionRules().CheckAction(nameof(Action), Product.Stock, Product.Reserved, Action, Amount));
 
             return base.AddBusinessRules();
         }
-
     }
-
 }

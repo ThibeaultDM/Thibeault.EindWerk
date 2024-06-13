@@ -38,7 +38,7 @@
             if (string.IsNullOrWhiteSpace(valueToCheck) || valueToCheck == string.Empty)
             {
                 Passed = false;
-                Message = $"Property '{propertyName}' is required and can not be empty or whitespace"; //$"Is required: {valueToCheck} for property {property}";
+                Message = $"Property '{propertyName}' is required and can not be empty or whitespace";
             }
 
             return this;
