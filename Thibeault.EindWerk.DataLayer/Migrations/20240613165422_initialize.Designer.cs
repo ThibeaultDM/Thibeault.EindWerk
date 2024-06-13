@@ -12,8 +12,8 @@ using Thibeault.EindWerk.DataLayer;
 namespace Thibeault.EindWerk.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240613135852_Initialize")]
-    partial class Initialize
+    [Migration("20240613165422_initialize")]
+    partial class initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

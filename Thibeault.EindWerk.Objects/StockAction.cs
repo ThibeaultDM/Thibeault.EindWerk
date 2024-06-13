@@ -11,12 +11,12 @@ namespace Thibeault.EindWerk.Objects
         public Product Product { get; set; }
 
         /// <summary>
-        /// Automaticly set
+        /// Automatically set
         /// </summary>
-        public Enums.Action Action { get; set; }
+        public Enums.Action Action { get; private set; }
 
         /// <summary>
-        /// What apples pears!? Amount is amiguos because products are unknow
+        /// What! apples, pears!? Amount is ambiguous because products are unknown
         /// </summary>
         public int Amount { get; set; }
 

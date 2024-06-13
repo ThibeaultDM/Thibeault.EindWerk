@@ -7,11 +7,10 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
     public interface IDataContext
     {
         DbSet<Product> Products { get; set; }
-
         DbSet<Customer> Customers { get; set; }
-
         DbSet<Address> Addresss { get; set; }
         DbSet<IdentityUser> Users { get; set; }
+        DbSet<StockAction> StockActions { get; set; }
 
         ValueTask DisposeAsync();
 
