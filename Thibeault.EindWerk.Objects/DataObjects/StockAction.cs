@@ -13,7 +13,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
         /// <summary>
         /// Automatically set
         /// </summary>
-        public Enums.Action Action { get; private set; }
+        public Enums.Action Action { get; set; }
 
         /// <summary>
         /// What! apples, pears!? Amount is ambiguous because products are unknown

@@ -21,7 +21,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
 
         public override string ToString()
         {
-            return "OrderHeader: "+ TrackingNumber.ToString() + ", " + Customer.ToString() + ", " + Status.ToString();
+            return "OrderHeader: " + TrackingNumber.ToString() + ", " + Customer.ToString() + ", " + Status.ToString();
         }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects.DataObjects;
 
@@ -27,7 +22,7 @@ namespace Thibeault.EindWerk.DataLayer
             }
             catch (Exception ex)
             {
-                string errorMessage = "-AddNewProductAsync-" + ex.Message;
+                string errorMessage = "-AddNewStockActionAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
@@ -51,7 +46,7 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IStockActionRepository.UpdateStockAction(StockAction)(StockAction)"/>
+        /// cfr <see cref="IStockActionRepository.UpdateStockAction(StockAction)"/>
         /// </summary>
         public virtual async Task UpdateStockAction(StockAction stockActionToUpdate)
         {
@@ -78,7 +73,5 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         #endregion Helper Methodes
-
-
     }
 }
