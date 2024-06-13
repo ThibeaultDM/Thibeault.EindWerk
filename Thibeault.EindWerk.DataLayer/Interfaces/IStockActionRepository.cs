@@ -9,7 +9,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// Use it to ensure no duplicate serialNumbers in the database.
         /// </summary>
         /// <returns>An empty stockActionToUpdate whom you can update to assign values</returns>
-        Task<StockAction> AddNewStockActionAsync(StockAction stockAction);
+        Task AddNewStockActionAsync(StockAction stockAction);
 
         /// <summary>
         /// Deletes stockActionToUpdate

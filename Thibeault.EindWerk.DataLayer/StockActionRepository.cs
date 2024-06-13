@@ -18,32 +18,12 @@ namespace Thibeault.EindWerk.DataLayer
         /// <summary>
         /// cfr <see cref="IStockActionRepository.AddNewStockActionAsync"/>
         /// </summary>
-        public virtual async Task<StockAction> AddNewStockActionAsync(StockAction stockAction)
+        public virtual async Task AddNewStockActionAsync(StockAction stockAction)
         {
             try
             {
-                // should an invalid product have been created it will have a tracking Id of "K0"
-                // No need to have it keep taking up space
-                StockAction productToAdd = await GetProductBySerialNumberAsync(0);
-
-                // to create a product I need a unique Id from which I generate a unique serial number.
-                // I let the database deal with making sure it's unique
-                productToAdd.SerialNumber = 0;
-
-                productToAdd = await Create(productToAdd);
-
-                if (productToAdd.Id == 0)
-                {
-                    await ProductTable().AddAsync(productToAdd);
-                    await SaveAsync();
-
-                    // To prevent tracking bug
-                    ProductTable().Entry(productToAdd).State = EntityState.Detached;
-
-                    productToAdd = await GetProductBySerialNumberAsync(0);
-                }
-
-                return productToAdd;
+                await ProductTable().AddAsync(stockAction);
+                await SaveAsync();
             }
             catch (Exception ex)
             {
@@ -53,7 +33,7 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IProductRepository.DeleteProductAsync(int)"/>
+        /// cfr <see cref="IStockActionRepository.DeleteStockActionAsync(int)"/>
         /// </summary>
 
         public virtual async Task DeleteProductAsync(int serialNumber)
