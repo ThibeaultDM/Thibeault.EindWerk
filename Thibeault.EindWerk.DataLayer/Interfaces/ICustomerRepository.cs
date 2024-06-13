@@ -12,12 +12,17 @@ namespace Thibeault.EindWerk.DataLayer
         Task<Customer> CreateCustomerAsync();
 
         /// <summary>
-        /// Gets Customer and their adress
+        /// Deletes Customer
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task<bool> DeleteCustomerAsync(string trackingNumber);
+        Task DeleteCustomerAsync(string trackingNumber);
 
+        /// <summary>
+        /// Deletes Customer and their adress
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         Task<Customer> GetCustomerByTrackingNumberAsync(string trackingNumber);
 
         Task<List<Customer>> GetCustomersAsync();

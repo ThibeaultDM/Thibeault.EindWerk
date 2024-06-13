@@ -48,21 +48,28 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="ICustomerRepository.GetCustomersAsync"/>
+        /// cfr <see cref="ICustomerRepository.DeleteCustomerAsync(string)"/>
         /// </summary>
-        public virtual async Task<List<Customer>> GetCustomersAsync()
+
+        public virtual async Task DeleteCustomerAsync(string trackingNumber)
         {
+            Customer customerToDelete = await GetCustomerByTrackingNumberAsync(trackingNumber);
+
             try
             {
-                return await CustomerTable().Include(c => c.Address).ToListAsync();
+                CustomerTable().Remove(customerToDelete);
+                await SaveAsync();
             }
             catch (Exception ex)
             {
-                string errorMessage = "-GetCustomersAsync-" + ex.Message;
+                string errorMessage = $"{trackingNumber}-DeleteCustomerAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
 
+        /// <summary>
+        /// cfr <see cref="ICustomerRepository.GetCustomerByTrackingNumberAsync(string)"/>
+        /// </summary>
         public virtual async Task<Customer> GetCustomerByTrackingNumberAsync(string trackingNumber)
         {
             try
@@ -77,6 +84,22 @@ namespace Thibeault.EindWerk.DataLayer
             catch (Exception ex)
             {
                 string errorMessage = $"{trackingNumber}-GetCustomerByTrackingNumberAsync-" + ex.Message;
+                throw new Exception(errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// cfr <see cref="ICustomerRepository.GetCustomersAsync"/>
+        /// </summary>
+        public virtual async Task<List<Customer>> GetCustomersAsync()
+        {
+            try
+            {
+                return await CustomerTable().Include(c => c.Address).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = "-GetCustomersAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
@@ -101,35 +124,13 @@ namespace Thibeault.EindWerk.DataLayer
             }
         }
 
-        public virtual async Task<bool> DeleteCustomerAsync(string trackingNumber)
-        {
-            bool isDeleted;
-
-            Customer customerToDelete = await GetCustomerByTrackingNumberAsync(trackingNumber);
-
-            try
-            {
-                CustomerTable().Remove(customerToDelete);
-                await SaveAsync();
-
-                isDeleted = true;
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = $"{trackingNumber}-DeleteCustomerAsync-" + ex.Message;
-                isDeleted = false;
-                throw new Exception(errorMessage);
-            }
-
-            return isDeleted;
-        }
-
         #region Helper Methodes
+
         private DbSet<Customer> CustomerTable()
         {
             return dataContext.Customers;
         }
 
-        #endregion
+        #endregion Helper Methodes
     }
 }
