@@ -57,7 +57,7 @@ namespace Thibeault.EindWerk.Services.Rules
 
             try
             {
-                if (stock >= reserved)
+                if (stock <= reserved)
                 {
                     throw new Exception("Can't reserve more than is in stock");
                 }
@@ -110,7 +110,7 @@ namespace Thibeault.EindWerk.Services.Rules
 
             try
             {
-                if (stock > 0)
+                if (stock < 0)
                 {
                     throw new Exception("Stock can't be lower than 0");
                 }
@@ -137,7 +137,7 @@ namespace Thibeault.EindWerk.Services.Rules
 
             try
             {
-                if (reserved > 0)
+                if (reserved < 0)
                 {
                     throw new Exception("Can't reserve les than 0");
                 }

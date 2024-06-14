@@ -20,12 +20,16 @@ string connectionString = builder.Configuration.GetConnectionString("Thibeault")
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
                                                                b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
                                                                      .EnableSensitiveDataLogging());
+// TODO remove EnableSensitiveDataLogging
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IStockActionRepository, StockActionRepository>();
+
+
 //register identity core
 builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DataContext>();
-
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Services
 builder.Services.AddTransient<ProductService>();

@@ -47,7 +47,7 @@ namespace Thibeault.EindWerk.Services
 
         //    product.StockActions.Add(action);
 
-        //    await productRepository.UpdateProduct(product);
+        //    await productRepository.UpdateProductAsync(product);
 
         //    return product;
         //}

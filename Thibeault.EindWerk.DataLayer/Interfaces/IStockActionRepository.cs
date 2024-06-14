@@ -10,7 +10,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// </summary>
         ///  <param name="stockAction"></param>
         /// <returns>An empty stockActionToUpdate whom you can update to assign values</returns>
-        Task AddNewStockActionAsync(StockAction stockAction);
+        Task AddNewStockActionAsync(Product product, StockAction stockAction);
 
         /// <summary>
         /// Deletes stockAction

@@ -104,9 +104,9 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IProductRepository.UpdateProduct(Product)"/>
+        /// cfr <see cref="IProductRepository.UpdateProductAsync(Product)"/>
         /// </summary>
-        public virtual async Task UpdateProduct(Product productToUpdate)
+        public virtual async Task UpdateProductAsync(Product productToUpdate)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace Thibeault.EindWerk.DataLayer
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{productToUpdate.SerialNumber}-UpdateProduct-" + ex.Message;
+                string errorMessage = $"{productToUpdate.SerialNumber}-UpdateProductAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }

@@ -22,17 +22,22 @@ namespace Thibeault.EindWerk.Api.Helper
 
             // Product
             CreateMap<BO_Product, Product>().ReverseMap();
-            CreateMap<AddProduct, Product>();
+            CreateMap<AddProduct, BO_Product>();
             CreateMap<ProductDto, Product>().ReverseMap();
             CreateMap<Product, ProductResponseForStockAction>();
+            CreateMap<Product, ProductResponse>();
+            CreateMap<BO_Product, ProductResponse>().ReverseMap();
+            CreateMap<BO_Product, ProductDto>().ReverseMap();
 
             // Address
             CreateMap<Address, AddressDto>().ReverseMap();
 
             // StockAction
-            CreateMap<StockActionDto, BO_StockAction>();
-            CreateMap<StockAction, BO_StockAction>();
-            CreateMap<BO_StockAction, StockActionResponse>();
+            CreateMap<StockActionDto, BO_StockAction>().ReverseMap();
+            CreateMap<StockAction, BO_StockAction>().ReverseMap();
+            CreateMap<BO_StockAction, StockActionResponse>().ReverseMap();
+            CreateMap<StockActionDto, StockAction>().ReverseMap();
+            CreateMap<StockAction, StockActionResponse>().ReverseMap();
         }
     }
 }

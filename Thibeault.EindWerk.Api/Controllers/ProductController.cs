@@ -37,7 +37,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 List<Product> products = await productRepository.GetProductsAsync();
 
-                List<ProductDto> response = mapper.Map<List<ProductDto>>(products);
+                List<ProductResponse> response = mapper.Map<List<ProductResponse>>(products);
 
                 result = Ok(response);
             }
@@ -58,7 +58,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 Product product = await productRepository.GetProductBySerialNumberAsync(input);
 
-                ProductDto response = mapper.Map<ProductDto>(product);
+                ProductResponse response = mapper.Map<ProductResponse>(product);
 
                 result = Ok(response);
             }
@@ -103,7 +103,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             try
             {
-                if (input.Stock > 1)
+                if (input.Stock < 1)
                 {
                     throw new Exception("To add a product the amount needs to be bigger than 1");
                 }
@@ -124,11 +124,11 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 if (productBo.IsValid)
                 {
-                    product = mapper.Map<Product>(productBo); ;
+                    product = mapper.Map<Product>(productBo);
 
-                    await productRepository.UpdateProduct(product);
+                    await actionRepository.AddNewStockActionAsync(product, initialAction);
 
-                    ProductDto response = mapper.Map<ProductDto>(productBo);
+                    ProductResponse response = mapper.Map<ProductResponse>(productBo);
 
                     result = Ok(response);
                 }
@@ -165,9 +165,9 @@ namespace Thibeault.EindWerk.Api.Controllers
                 {
                     product = mapper.Map<Product>(productBo);
 
-                    await productRepository.UpdateProduct(product);
+                    await productRepository.UpdateProductAsync(product);
 
-                    ProductDto response = mapper.Map<ProductDto>(productBo);
+                    ProductResponse response = mapper.Map<ProductResponse>(productBo);
 
                     result = Ok(response);
                 }
@@ -186,8 +186,8 @@ namespace Thibeault.EindWerk.Api.Controllers
             return result;
         }
 
-        [HttpGet("Get10MostPopularProducts")]
-        private async Task<IActionResult> GetMostPopularProducts()
+        [HttpGet("GetMostPopularProducts")]
+        public async Task<IActionResult> GetMostPopularProducts()
         {
             ObjectResult result;
 
@@ -195,7 +195,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 List<Product> products = await productService.MostPopularProducts(10);
 
-                List<ProductDto> response = mapper.Map<List<ProductDto>>(products);
+                List<ProductResponse> response = mapper.Map<List<ProductResponse>>(products);
 
                 result = Ok(response);
             }
@@ -214,43 +214,32 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             try
             {
+                if (input.StockAction.Action == Objects.Enums.Action.Reserved)
+                {
+                    throw new Exception("Not allowed to manually reserve products");
+                }
+
                 Product product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
 
-                BO_StockAction stockActionBo = mapper.Map<BO_StockAction>(input.StockAction);
+                StockAction stockAction = mapper.Map<StockAction>(input.StockAction);
 
-                stockActionBo.Product = product;
+                BO_Product productBo = mapper.Map<BO_Product>(product);
 
-                if (stockActionBo.IsValid)
+                productBo.StockActions.Add(stockAction);
+
+                if (productBo.IsValid)
                 {
-                    StockAction stockAction = mapper.Map<StockAction>(stockActionBo);
+                    product = mapper.Map<Product>(productBo);
 
-                    await actionRepository.AddNewStockActionAsync(stockAction);
+                    await actionRepository.AddNewStockActionAsync(product, stockAction);
 
-                    product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
+                    ProductResponse response = mapper.Map<ProductResponse>(productBo);
 
-                    // get that in the object for testing
-                    BO_Product productBo = mapper.Map<BO_Product>(product);
-
-                    if (productBo.IsValid)
-                    {
-                        product = mapper.Map<Product>(productBo);
-
-                        await productRepository.UpdateProduct(product);
-
-                        ProductDto response = mapper.Map<ProductDto>(productBo);
-
-                        result = Ok(response);
-                    }
-                    else
-                    {
-                        ProductDto response = mapper.Map<ProductDto>(productBo);
-
-                        result = BadRequest(response);
-                    }
+                    result = Ok(response);
                 }
                 else
                 {
-                    StockActionResponse response = mapper.Map<StockActionResponse>(stockActionBo);
+                    ProductDto response = mapper.Map<ProductDto>(productBo);
 
                     result = BadRequest(response);
                 }

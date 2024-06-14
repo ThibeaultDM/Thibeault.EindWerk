@@ -35,7 +35,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// <param name="productToUpdate"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task UpdateProduct(Product productToUpdate);
+        Task UpdateProductAsync(Product productToUpdate);
 
         /// <summary>
         /// To allow queries to be sent for products

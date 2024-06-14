@@ -12,8 +12,8 @@ using Thibeault.EindWerk.DataLayer;
 namespace Thibeault.EindWerk.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240613165422_initialize")]
-    partial class initialize
+    [Migration("20240614151935_Inintialize")]
+    partial class Inintialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,8 +235,9 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HouseNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("HouseNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PostCode")
                         .HasColumnType("int");
@@ -253,7 +254,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.ToTable("Adresses", (string)null);
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.Customer", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -299,7 +300,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.ToTable("Customers", (string)null);
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", b =>
                 {
                     b.Property<int>("TrackingNumber")
                         .ValueGeneratedOnAdd()
@@ -336,7 +337,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.ToTable("OrderHeaders", (string)null);
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.Product", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -378,7 +379,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.StockAction", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.StockAction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -469,7 +470,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.Customer", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.Customer", b =>
                 {
                     b.HasOne("Thibeault.EindWerk.Objects.Address", "Address")
                         .WithMany()
@@ -480,9 +481,9 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", b =>
                 {
-                    b.HasOne("Thibeault.EindWerk.Objects.Customer", "Customer")
+                    b.HasOne("Thibeault.EindWerk.Objects.DataObjects.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -491,13 +492,13 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.StockAction", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.StockAction", b =>
                 {
-                    b.HasOne("Thibeault.EindWerk.Objects.OrderHeader", "OrderHeader")
+                    b.HasOne("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", "OrderHeader")
                         .WithMany("StockActions")
                         .HasForeignKey("OrderHeaderTrackingNumber");
 
-                    b.HasOne("Thibeault.EindWerk.Objects.Product", "Product")
+                    b.HasOne("Thibeault.EindWerk.Objects.DataObjects.Product", "Product")
                         .WithMany("StockActions")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -508,17 +509,17 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.Customer", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.Customer", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.OrderHeader", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", b =>
                 {
                     b.Navigation("StockActions");
                 });
 
-            modelBuilder.Entity("Thibeault.EindWerk.Objects.Product", b =>
+            modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.Product", b =>
                 {
                     b.Navigation("StockActions");
                 });

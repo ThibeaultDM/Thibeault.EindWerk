@@ -9,7 +9,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
         public int Id { get; set; }
 
         public int SerialNumber { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int Stock { get; set; }
         public int Reserved { get; set; }
         public List<StockAction> StockActions { get; set; } = new();

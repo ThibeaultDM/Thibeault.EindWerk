@@ -6,19 +6,25 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public class StockActionRepository : BaseRepository, IStockActionRepository
     {
-        public StockActionRepository(IDataContext dataContext) : base(dataContext)
+        private readonly IProductRepository productRepository;
+
+        public StockActionRepository(IDataContext dataContext, IProductRepository productRepository) : base(dataContext)
         {
+            this.productRepository = productRepository;
         }
 
         /// <summary>
         /// cfr <see cref="IStockActionRepository.AddNewStockActionAsync"/>
         /// </summary>
-        public virtual async Task AddNewStockActionAsync(StockAction stockAction)
+        public virtual async Task AddNewStockActionAsync(Product product, StockAction stockAction)
         {
             try
             {
-                await ProductTable().AddAsync(stockAction);
-                await SaveAsync();
+                await Create(stockAction);
+
+                product.StockActions.Add(stockAction);
+
+                await productRepository.UpdateProductAsync(product);
             }
             catch (Exception ex)
             {
