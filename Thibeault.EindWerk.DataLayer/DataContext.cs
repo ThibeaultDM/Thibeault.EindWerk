@@ -54,6 +54,7 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<OrderHeader>().HasIndex(x => x.TrackingNumber).IsUnique();
 
             builder.Entity<Customer>().HasMany(c => c.Orders).WithOne(oh => oh.Customer);
+            builder.Entity<Customer>().HasOne(c => c.Address);
             builder.Entity<OrderHeader>().HasMany(oh => oh.StockActions).WithOne(ol => ol.OrderHeader);
             //builder.Entity<OrderLineProbablyDeprecated>().HasOne(ol => ol.StockAction).WithOne(sa => sa.OrderLineProbablyDeprecated);
             builder.Entity<Product>().HasMany(p => p.StockActions).WithOne(s => s.Product);

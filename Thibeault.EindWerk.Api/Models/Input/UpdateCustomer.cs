@@ -6,5 +6,10 @@
         public string FullName { get; set; }
         public string Email { get; set; }
         public AddressDto Address { get; set; }
+
+        public override string ToString()
+        {
+            return "Customer: " + FullName + ": " + TrackingNumber.ToString();
+        }
     }
 }

@@ -8,6 +8,7 @@ using Thibeault.EindWerk.Api.Helper;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.DataLayer.DataSeeding;
 using Thibeault.EindWerk.DataLayer.Interfaces;
+using Thibeault.EindWerk.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.Require
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Services
-
+builder.Services.AddTransient<ProductService>();
 // Api
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped<JwtHelper>();

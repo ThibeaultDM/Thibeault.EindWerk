@@ -28,28 +28,28 @@ namespace Thibeault.EindWerk.Services
             return mostPopularProducts;
         }
 
-        public async Task<Product> AddActionToProduct(Product product, StockAction action)
-        {
-            // Validity of action has already been checked
-            if (action.Action == Objects.Enums.Action.Add)
-            {
-                product.Stock += action.Amount;
-            }
-            else if (action.Action == Objects.Enums.Action.Remove)
-            {
-                product.Stock -= action.Amount;
-            }
-            else
-            {
-                product.Stock += action.Amount;
-            }
+        // became rule should be unnecessary
+        //public async Task<Product> AddActionToProduct(Product product, StockAction action)
+        //{
+        //    // Validity of action has already been checked
+        //    if (action.Action == Objects.Enums.Action.Add)
+        //    {
+        //        product.Stock += action.Amount;
+        //    }
+        //    else if (action.Action == Objects.Enums.Action.Remove)
+        //    {
+        //        product.Stock -= action.Amount;
+        //    }
+        //    else
+        //    {
+        //        product.Stock += action.Amount;
+        //    }
 
-            product.StockActions.Add(action);
+        //    product.StockActions.Add(action);
 
-            await productRepository.UpdateProduct(product);
+        //    await productRepository.UpdateProduct(product);
 
-            return product;
-        }
-
+        //    return product;
+        //}
     }
 }

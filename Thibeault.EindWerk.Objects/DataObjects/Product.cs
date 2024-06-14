@@ -12,7 +12,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
         public string Name { get; set; }
         public int Stock { get; set; }
         public int Reserved { get; set; }
-        public List<StockAction>? StockActions { get; set; } = new();
+        public List<StockAction> StockActions { get; set; } = new();
 
         public override string ToString()
         {

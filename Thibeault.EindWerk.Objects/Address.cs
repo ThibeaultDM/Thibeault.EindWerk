@@ -11,6 +11,11 @@ namespace Thibeault.EindWerk.Objects
         public string City { get; set; } = string.Empty;
         public int PostCode { get; set; }
         public string StreetName { get; set; } = string.Empty;
-        public int HouseNumber { get; set; }
+        public string HouseNumber { get; set; }
+
+        public override string ToString()
+        {
+            return "Address: " + City + ": " + PostCode.ToString() + "\n" + StreetName + " " + HouseNumber;
+        }
     }
 }

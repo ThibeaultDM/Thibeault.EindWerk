@@ -33,9 +33,9 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 List<Customer> customers = await repository.GetCustomersAsync();
 
-                List<CreatedCustomer> respons = mapper.Map<List<CreatedCustomer>>(customers);
+                List<CreatedCustomer> response = mapper.Map<List<CreatedCustomer>>(customers);
 
-                result = Ok(respons);
+                result = Ok(response);
             }
             catch (Exception ex)
             {
@@ -54,9 +54,9 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 Customer customer = await repository.GetCustomerByTrackingNumberAsync(input);
 
-                CreatedCustomer respons = mapper.Map<CreatedCustomer>(customer);
+                CreatedCustomer response = mapper.Map<CreatedCustomer>(customer);
 
-                result = Ok(respons);
+                result = Ok(response);
             }
             catch (Exception ex)
             {

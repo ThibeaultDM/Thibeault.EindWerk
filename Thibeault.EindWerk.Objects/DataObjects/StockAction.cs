@@ -5,6 +5,17 @@ namespace Thibeault.EindWerk.Objects.DataObjects
 {
     public class StockAction : BaseObject
     {
+        public StockAction()
+        {
+        }
+
+        public StockAction(Product product, Enums.Action action, int amount) : base()
+        {
+            Product = product;
+            Action = action;
+            Amount = amount;
+        }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
@@ -24,7 +35,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
 
         public override string ToString()
         {
-            return "Stock Action: " + Product.ToString() + ", " + Action.ToString() + " " + Amount.ToString() + ", " + OrderHeader.ToString();
+            return "Stock Action: " + Product.ToString() + ", " + Action.ToString() + " " + Amount.ToString() + "\n" + OrderHeader.ToString();
         }
     }
 }
