@@ -10,12 +10,12 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
         public Product Product { get; set; }
 
         /// <summary>
-        /// Automaticly set
+        /// Automatically set
         /// </summary>
         public Objects.Enums.Action Action { get; set; }
 
         /// <summary>
-        /// What apples pears!? Amount is amiguos because products are unknow
+        /// What apples pears!? Amount is ambiguous because products are unknow
         /// </summary>
         public int Amount { get; set; }
 

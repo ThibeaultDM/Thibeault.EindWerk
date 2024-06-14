@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Thibeault.EindWerk.DataLayer\Thibeault.EindWerk.DataLayer.csproj" />
     <ProjectReference Include="..\Thibeault.EindWerk.Objects\Thibeault.EindWerk.Objects.csproj" />
   </ItemGroup>
 

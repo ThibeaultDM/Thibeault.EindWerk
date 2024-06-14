@@ -36,5 +36,11 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         Task UpdateProduct(Product productToUpdate);
+
+        /// <summary>
+        /// To allow queries to be sent for products
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Product> QueryProducts();
     }
 }

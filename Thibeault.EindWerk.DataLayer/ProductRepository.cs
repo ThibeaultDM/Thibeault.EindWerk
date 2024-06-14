@@ -17,7 +17,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                // should an invalid product have been created it will have a tracking Id of "K0"
+                // should an invalid product have been created it will have a serial number of 0
                 // No need to have it keep taking up space
                 Product productToAdd = await GetProductBySerialNumberAsync(0);
 
@@ -75,8 +75,7 @@ namespace Thibeault.EindWerk.DataLayer
             try
             {
                 // I don't use singleOrDefault for possible edge case of multiple invalid (0) products existing
-                Product product = await ProductTable()
-                                                     .AsNoTracking().Include(c => c.StockActions)
+                Product product = await ProductTable().AsNoTracking().Include(c => c.StockActions)
                                                      .FirstOrDefaultAsync(c => c.SerialNumber == serialNumber)
                                                      ?? (serialNumber == 0 ? new() : throw new Exception("Product not found"));
                 return product;
@@ -129,6 +128,16 @@ namespace Thibeault.EindWerk.DataLayer
         private DbSet<Product> ProductTable()
         {
             return dataContext.Products;
+        }
+
+        /// <summary>
+        /// cfr <see cref="IProductRepository.QueryProducts"/>
+        /// </summary>
+        public IQueryable<Product> QueryProducts()
+        {
+            IQueryable<Product> queryBase = dataContext.Products;
+
+            return queryBase;
         }
 
         #endregion Helper Methodes

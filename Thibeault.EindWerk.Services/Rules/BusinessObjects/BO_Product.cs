@@ -1,4 +1,5 @@
-﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
+using Thibeault.EindWerk.Services.Rules.RulesFramework;
 
 namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 {
@@ -9,10 +10,6 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
         public string Name { get; set; }
         public int Stock { get; set; }
         public int Reserved { get; set; }
-
-        /// <summary>
-        /// In euro
-        /// </summary>
-        public double PricePerUnit { get; set; }
+        public List<StockAction>? StockActions { get; set; } = new();
     }
 }
