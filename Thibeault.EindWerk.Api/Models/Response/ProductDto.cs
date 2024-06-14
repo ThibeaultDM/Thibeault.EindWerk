@@ -11,6 +11,5 @@ namespace Thibeault.EindWerk.Api.Models.Response
         public int Reserved { get; set; }
         public List<StockActionDto> StockActions { get; set; }
         public List<BrokenRule> BrokenRules { get; set; }
-
     }
 }
