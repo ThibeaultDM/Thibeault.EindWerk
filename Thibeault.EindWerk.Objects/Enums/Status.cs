@@ -3,7 +3,7 @@
     public enum Status
     {
         New,
-        Deliverd,
-        Canceled
+        Delivered,
+        Cancelled
     }
 }

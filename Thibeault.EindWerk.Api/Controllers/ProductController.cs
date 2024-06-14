@@ -96,7 +96,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             return result;
         }
 
-        [HttpPost("addProduct")]
+        [HttpPost("AddProduct")]
         public async Task<IActionResult> AddProductAsync([FromBody] AddProduct input)
         {
             ObjectResult result;
@@ -158,23 +158,19 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 // get that in the object for testing
                 BO_Product productBo = mapper.Map<BO_Product>(product);
-
                 productBo.Name = input.Name;
 
                 if (productBo.IsValid)
                 {
                     product = mapper.Map<Product>(productBo);
-
                     await productRepository.UpdateProductAsync(product);
 
                     ProductResponse response = mapper.Map<ProductResponse>(productBo);
-
                     result = Ok(response);
                 }
                 else
                 {
                     ProductDto response = mapper.Map<ProductDto>(productBo);
-
                     result = BadRequest(response);
                 }
             }
@@ -194,7 +190,6 @@ namespace Thibeault.EindWerk.Api.Controllers
             try
             {
                 List<Product> products = await productService.MostPopularProducts(10);
-
                 List<ProductResponse> response = mapper.Map<List<ProductResponse>>(products);
 
                 result = Ok(response);
@@ -220,9 +215,8 @@ namespace Thibeault.EindWerk.Api.Controllers
                 }
 
                 Product product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
-
+                
                 StockAction stockAction = mapper.Map<StockAction>(input.StockAction);
-
                 BO_Product productBo = mapper.Map<BO_Product>(product);
 
                 productBo.StockActions.Add(stockAction);
@@ -230,17 +224,14 @@ namespace Thibeault.EindWerk.Api.Controllers
                 if (productBo.IsValid)
                 {
                     product = mapper.Map<Product>(productBo);
-
                     await actionRepository.AddNewStockActionAsync(product, stockAction);
 
                     ProductResponse response = mapper.Map<ProductResponse>(productBo);
-
                     result = Ok(response);
                 }
                 else
                 {
                     ProductDto response = mapper.Map<ProductDto>(productBo);
-
                     result = BadRequest(response);
                 }
             }

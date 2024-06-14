@@ -10,8 +10,5 @@ namespace Thibeault.EindWerk.Objects
 
         public string? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public Product Product { get; }
-        public Enums.Action Action { get; }
-        public int Amount { get; }
     }
 }

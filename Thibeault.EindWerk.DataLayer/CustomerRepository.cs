@@ -131,6 +131,13 @@ namespace Thibeault.EindWerk.DataLayer
             return dataContext.Customers;
         }
 
+        public IQueryable<Customer> QueryCustomers()
+        {
+            IQueryable<Customer> queryBase = dataContext.Customers;
+
+            return queryBase;
+        }
+
         #endregion Helper Methodes
     }
 }

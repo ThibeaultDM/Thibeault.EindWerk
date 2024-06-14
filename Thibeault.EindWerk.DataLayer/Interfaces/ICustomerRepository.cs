@@ -34,5 +34,12 @@ namespace Thibeault.EindWerk.DataLayer
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         Task UpdateCustomer(Customer customerToUpdate);
+
+        /// <summary>
+        /// To allow queries to be sent for Customers
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Customer> QueryCustomers();
+
     }
 }

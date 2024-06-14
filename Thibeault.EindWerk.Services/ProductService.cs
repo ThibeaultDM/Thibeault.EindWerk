@@ -16,14 +16,14 @@ namespace Thibeault.EindWerk.Services
         public async Task<List<Product>> MostPopularProducts(int howMany)
         {
             List<Product> mostPopularProducts = await productRepository.QueryProducts()
-                                                             .Select(p => new
-                                                             {
-                                                                 Product = p,
-                                                                 OrderdAmount = p.StockActions
-                                                                 .Where(s => s.Action != Objects.Enums.Action.Add)
-                                                                 .Sum(s => s.Amount)
-                                                             })
-                       .OrderByDescending(an => an.OrderdAmount).Take(howMany).Select(an => an.Product).ToListAsync();
+                                                                       .Select(p => new
+                                                                       {
+                                                                           Product = p,
+                                                                           OrderdAmount = p.StockActions
+                                                                           .Where(s => s.Action != Objects.Enums.Action.Add)
+                                                                           .Sum(s => s.Amount)
+                                                                       })
+           .OrderByDescending(an => an.OrderdAmount).Take(howMany).Select(an => an.Product).ToListAsync();
 
             return mostPopularProducts;
         }

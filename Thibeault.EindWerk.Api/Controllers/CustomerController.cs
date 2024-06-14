@@ -104,18 +104,15 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 if (customerBo.IsValid)
                 {
-                    customer = mapper.Map<Customer>(customerBo); ;
-
+                    customer = mapper.Map<Customer>(customerBo);
                     await repository.UpdateCustomer(customer);
 
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
                     result = Ok(response);
                 }
                 else
                 {
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
                     result = BadRequest(response);
                 }
             }
@@ -147,17 +144,14 @@ namespace Thibeault.EindWerk.Api.Controllers
                 if (customerBo.IsValid)
                 {
                     customer = mapper.Map<Customer>(customerBo);
-
                     await repository.UpdateCustomer(customer);
 
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
                     result = Ok(response);
                 }
                 else
                 {
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
-
                     result = BadRequest(response);
                 }
             }

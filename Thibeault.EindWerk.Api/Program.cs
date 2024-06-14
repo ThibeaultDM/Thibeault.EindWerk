@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -15,7 +16,17 @@ var builder = WebApplication.CreateBuilder(args);
 #region Dependency Injection
 
 // DataLayer
-string connectionString = builder.Configuration.GetConnectionString("Thibeault");
+string connectionString;
+if (Environment.MachineName == "DESKTOP-S7BR7BO")
+{
+    connectionString = builder.Configuration.GetConnectionString("Thibeault")
+        ?? throw new Exception("Missing connection string");
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("ProfDieHetCheckt")
+        ?? throw new Exception("Missing connection string");
+}
 
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
                                                                b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
@@ -32,6 +43,7 @@ builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.Require
 
 // Services
 builder.Services.AddTransient<ProductService>();
+
 // Api
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped<JwtHelper>();
