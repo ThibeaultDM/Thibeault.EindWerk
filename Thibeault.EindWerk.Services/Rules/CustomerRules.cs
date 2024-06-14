@@ -20,16 +20,16 @@ namespace Thibeault.EindWerk.Services.Rules
             {
                 if (id > 9999 || id < 1)
                 {
-                    throw new Exception();
+                    throw new Exception("No valid trackingNumber could be generated");
                 }
 
                 // change id to a 4 digit format and pad it with 0's ( my spelling test results :') )
                 trackingNumber += id.ToString().PadLeft(4, '0');
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Passed = false;
-                Message = "No valid trackingNumber was generated";
+                Message = ex.Message;
             }
 
             return this;
