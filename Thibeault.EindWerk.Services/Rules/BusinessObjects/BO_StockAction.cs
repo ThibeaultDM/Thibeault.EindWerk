@@ -23,9 +23,9 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 
         public override bool AddBusinessRules()
         {
-            Rules.Add(new StockActionRules().IsRequired(nameof(Product), Product));
-            Rules.Add(new StockActionRules().IsRequired(nameof(Action), Action));
-            Rules.Add(new StockActionRules().IsRequired(nameof(Amount), Amount));
+            Rules.Add(new Rule().IsRequired(nameof(Product), Product));
+            Rules.Add(new Rule().IsRequired(nameof(Action), Action));
+            Rules.Add(new Rule().IsRequired(nameof(Amount), Amount));
 
             Rules.Add(new StockActionRules().CheckAction(nameof(Action), Product.Stock, Product.Reserved, Action, Amount));
 

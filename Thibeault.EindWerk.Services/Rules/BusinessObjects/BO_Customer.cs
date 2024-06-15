@@ -22,13 +22,13 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 
         public override bool AddBusinessRules()
         {
-            Rules.Add(new CustomerRules().IsRequired(nameof(Id), Id));
-            Rules.Add(new CustomerRules().IsRequired(nameof(FullName), FullName));
-            Rules.Add(new CustomerRules().IsRequired(nameof(Email), Email));
-            Rules.Add(new CustomerRules().IsRequired(nameof(Address.City), Address.City));
-            Rules.Add(new CustomerRules().IsRequired(nameof(Address.PostCode), Address.PostCode));
-            Rules.Add(new CustomerRules().IsRequired(nameof(Address.StreetName), Address.StreetName));
-            Rules.Add(new CustomerRules().IsRequired(nameof(Address.HouseNumber), Address.HouseNumber));
+            Rules.Add(new Rule().IsRequired(nameof(Id), Id));
+            Rules.Add(new Rule().IsRequired(nameof(FullName), FullName));
+            Rules.Add(new Rule().IsRequired(nameof(Email), Email));
+            Rules.Add(new Rule().IsRequired(nameof(Address.City), Address.City));
+            Rules.Add(new Rule().IsRequired(nameof(Address.PostCode), Address.PostCode));
+            Rules.Add(new Rule().IsRequired(nameof(Address.StreetName), Address.StreetName));
+            Rules.Add(new Rule().IsRequired(nameof(Address.HouseNumber), Address.HouseNumber));
 
             Rules.Add(new CustomerRules().GenerateTrackingNumber(nameof(TrackingNumber), (int)Id, out trackingNumber));
             Rules.Add(new CustomerRules().ValiditieTrackingNumber(nameof(TrackingNumber), (int)Id, TrackingNumber));

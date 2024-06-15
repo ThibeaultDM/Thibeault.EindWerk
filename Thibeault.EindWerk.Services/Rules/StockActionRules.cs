@@ -19,6 +19,10 @@ namespace Thibeault.EindWerk.Services.Rules
 
             try
             {
+                if (amount < 1)
+                {
+                    throw new Exception("Can't do anything with an amount smaller than 1");
+                }
                 if (action == Objects.Enums.Action.Remove)
                 {
                     leftoverStock = productStock - amount;
@@ -28,8 +32,7 @@ namespace Thibeault.EindWerk.Services.Rules
                         throw new Exception("Can't remove more from stock then is in stock");
                     }
                 }
-
-                if (action == Objects.Enums.Action.Reserved)
+                else if (action == Objects.Enums.Action.Reserved)
                 {
                     leftoverStock = productStock - productReservations - amount;
 
