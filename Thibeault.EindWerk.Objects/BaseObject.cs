@@ -1,6 +1,4 @@
-﻿using Thibeault.EindWerk.Objects.DataObjects;
-
-namespace Thibeault.EindWerk.Objects
+﻿namespace Thibeault.EindWerk.Objects
 
 {
     public class BaseObject

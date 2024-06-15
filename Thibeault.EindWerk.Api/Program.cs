@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -46,7 +45,7 @@ builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<CustomerService>();
 
 // Api
-builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+builder.Services.AddAutoMapper(typeof(AutoMapperHelper));
 builder.Services.AddScoped<JwtHelper>();
 
 builder.Services.AddCors(options =>
@@ -124,8 +123,8 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetService<SeedDatabaseHelper>();
-    await SeedDatabaseHelper.SeedRolesAndAdminAsync(scope.ServiceProvider);
+    scope.ServiceProvider.GetService<SeedUserHelper>();
+    await SeedUserHelper.SeedRolesAndAdminAsync(scope.ServiceProvider);
 }
 
 app.Run();

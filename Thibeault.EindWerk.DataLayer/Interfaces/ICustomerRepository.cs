@@ -40,6 +40,5 @@ namespace Thibeault.EindWerk.DataLayer
         /// </summary>
         /// <returns></returns>
         IQueryable<Customer> QueryCustomers();
-
     }
 }

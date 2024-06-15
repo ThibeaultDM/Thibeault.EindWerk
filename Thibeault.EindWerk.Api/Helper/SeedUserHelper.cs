@@ -2,7 +2,7 @@
 
 namespace Thibeault.EindWerk.DataLayer.DataSeeding
 {
-    public class SeedDatabaseHelper
+    public class SeedUserHelper
     {
         public static async Task SeedRolesAndAdminAsync(IServiceProvider serviceProvider)
         {

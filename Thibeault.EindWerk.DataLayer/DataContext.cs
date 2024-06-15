@@ -9,7 +9,8 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public class DataContext : IdentityDbContext<IdentityUser>, IDataContext
     {
-        // TODO transaction scope 
+        // TODO transaction scope
+
         #region Constructors
 
         public DataContext()

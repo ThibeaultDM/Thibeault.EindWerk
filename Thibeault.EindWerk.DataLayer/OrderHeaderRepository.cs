@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects.DataObjects;
 
@@ -136,6 +131,5 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         #endregion Helper Methodes
-
     }
 }

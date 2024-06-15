@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Thibeault.EindWerk.Objects.DataObjects;
+﻿using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
@@ -41,7 +36,5 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         Task UpdateOrderHeaderAsync(OrderHeader orderHeaderToUpdate);
-
-
     }
 }

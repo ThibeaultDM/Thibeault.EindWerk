@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
-using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
 using Thibeault.EindWerk.Objects.DataObjects;
 using Thibeault.EindWerk.Services;
@@ -21,7 +20,7 @@ namespace Thibeault.EindWerk.Api.Controllers
         private readonly CustomerService service;
         private readonly IMapper mapper;
 
-        public CustomerController(ICustomerRepository repository, CustomerService service,IMapper mapper)
+        public CustomerController(ICustomerRepository repository, CustomerService service, IMapper mapper)
         {
             this.repository = repository;
             this.service = service;
@@ -186,6 +185,5 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             return result;
         }
-
     }
 }

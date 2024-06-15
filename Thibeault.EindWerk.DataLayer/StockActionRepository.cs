@@ -61,12 +61,32 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                ProductTable().Remove(stockAction);
+                StockActionTable().Remove(stockAction);
                 await SaveAsync();
             }
             catch (Exception ex)
             {
                 string errorMessage = $"{stockAction}-DeleteStockActionAsync-" + ex.Message;
+                throw new Exception(errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// cfr <see cref="IStockActionRepository.GetStockActionByIdAsync(Guid)"/>
+        /// </summary>
+        public virtual async Task<StockAction> GetStockActionByIdAsync(Guid Id)
+        {
+            try
+            {
+                // I don't use singleOrDefault for possible edge case of multiple invalid (0) products existing
+                StockAction product = await StockActionTable().AsNoTracking()
+                                                     .SingleOrDefaultAsync(s => s.Id == Id)
+                                                     ?? throw new Exception("StockAction not found");
+                return product;
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = $"{Id}-GetStockActionByIdAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }
@@ -80,7 +100,7 @@ namespace Thibeault.EindWerk.DataLayer
             {
                 stockActionToUpdate = await Update(stockActionToUpdate);
 
-                var entry = ProductTable().Attach(stockActionToUpdate);
+                var entry = StockActionTable().Attach(stockActionToUpdate);
                 entry.State = EntityState.Modified;
                 await SaveAsync();
             }
@@ -93,7 +113,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         #region Helper Methodes
 
-        private DbSet<StockAction> ProductTable()
+        private DbSet<StockAction> StockActionTable()
         {
             return dataContext.StockActions;
         }

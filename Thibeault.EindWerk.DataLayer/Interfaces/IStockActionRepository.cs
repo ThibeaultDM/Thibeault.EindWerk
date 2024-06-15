@@ -27,6 +27,13 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         Task DeleteStockActionAsync(StockAction stockAction);
 
         /// <summary>
+        /// Gets a StockAction by it's Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        Task<StockAction> GetStockActionByIdAsync(Guid Id);
+
+        /// <summary>
         /// Updates the UpdatedOn and UpdatedBy props as well
         /// </summary>
         /// <param name="stockActionToUpdate"></param>

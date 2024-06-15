@@ -7,9 +7,9 @@ using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Helper
 {
-    public class AutoMapperConfig : Profile
+    public class AutoMapperHelper : Profile
     {
-        public AutoMapperConfig()
+        public AutoMapperHelper()
         {
             // TODO look at custom mapping again
             // how to only map properties that they share
@@ -19,6 +19,7 @@ namespace Thibeault.EindWerk.Api.Helper
             CreateMap<CreateCustomer, BO_Customer>();
             CreateMap<CreatedCustomer, BO_Customer>().ReverseMap();
             CreateMap<CreatedCustomer, Customer>().ReverseMap();
+            CreateMap<Customer, CustomerResponse>();
 
             // Product
             CreateMap<BO_Product, Product>().ReverseMap();
@@ -38,6 +39,10 @@ namespace Thibeault.EindWerk.Api.Helper
             CreateMap<BO_StockAction, StockActionResponse>().ReverseMap();
             CreateMap<StockActionDto, StockAction>().ReverseMap();
             CreateMap<StockAction, StockActionResponse>().ReverseMap();
+            CreateMap<StockAction, StockActionResponseForOrderHeader>();
+
+            // OrderHeaders
+            CreateMap<OrderHeader, OrderHeaderResponse>().ReverseMap();
         }
     }
 }

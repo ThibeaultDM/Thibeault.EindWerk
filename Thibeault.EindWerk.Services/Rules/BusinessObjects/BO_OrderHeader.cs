@@ -1,10 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using Thibeault.EindWerk.Objects.DataObjects;
 using Thibeault.EindWerk.Objects.Enums;
 using Thibeault.EindWerk.Services.Rules.RulesFramework;
@@ -35,18 +29,14 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 
         public override bool AddBusinessRules()
         {
-            Rules.Add(new Rule().IsRequired(nameof(Id), Id));
             Rules.Add(new Rule().IsRequired(nameof(Customer), Customer));
             Rules.Add(new Rule().IsRequired(nameof(Status), Status));
-            Rules.Add(new Rule().IsRequired(nameof(StockActions), StockActions));
 
             Rules.Add(new ProductRules().GenerateSerialNumber(nameof(TrackingNumber), Id, out trackingNumber));
-            Rules.Add(new Rule().IsRequired(nameof(TrackingNumber), TrackingNumber));
 
             Rules.Add(new OrderHeaderRules(mapper).CheckIfOrderIsValid(nameof(StockActions), StockActions));
 
             return base.AddBusinessRules();
         }
-
     }
 }
