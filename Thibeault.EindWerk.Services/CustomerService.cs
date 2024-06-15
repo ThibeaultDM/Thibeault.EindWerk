@@ -6,6 +6,7 @@ namespace Thibeault.EindWerk.Services
 {
     public class CustomerService
     {
+        // TODO replace this with a generated view, save the string here and execute RawSQLAsync on the database
         public async Task<List<Customer>> MostLoyalCustomersAsync(IQueryable<Customer> query, int howMany)
         {
             List<Customer> customers = await query.Select(c => new
