@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Thibeault.EindWerk.Api.Models.Input;
 using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
+using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects;
 using Thibeault.EindWerk.Objects.DataObjects;
+using Thibeault.EindWerk.Services;
 using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Controllers
@@ -16,11 +18,13 @@ namespace Thibeault.EindWerk.Api.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository repository;
+        private readonly CustomerService service;
         private readonly IMapper mapper;
 
-        public CustomerController(ICustomerRepository repository, IMapper mapper)
+        public CustomerController(ICustomerRepository repository, CustomerService service,IMapper mapper)
         {
             this.repository = repository;
+            this.service = service;
             this.mapper = mapper;
         }
 
@@ -162,5 +166,26 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             return result;
         }
+
+        [HttpGet("GetMostLoyalCustomers")]
+        public async Task<IActionResult> GetMostLoyalCustomersAsync()
+        {
+            ObjectResult result;
+
+            try
+            {
+                List<Customer> products = await service.MostLoyalCustomersAsync(repository.QueryCustomers(), 10);
+                List<CreatedCustomer> response = mapper.Map<List<CreatedCustomer>>(products);
+
+                result = Ok(response);
+            }
+            catch (Exception ex)
+            {
+                result = BadRequest(ex.Message);
+            }
+
+            return result;
+        }
+
     }
 }

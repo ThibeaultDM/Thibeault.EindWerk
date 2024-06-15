@@ -1,28 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.Services
 {
     public class ProductService
     {
-        private readonly IProductRepository productRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public async Task<List<Product>> MostPopularProductsAsync(IQueryable<Product> query, int howMany)
         {
-            this.productRepository = productRepository;
-        }
-
-        public async Task<List<Product>> MostPopularProducts(int howMany)
-        {
-            List<Product> mostPopularProducts = await productRepository.QueryProducts()
-                                                                       .Select(p => new
-                                                                       {
-                                                                           Product = p,
-                                                                           OrderdAmount = p.StockActions
-                                                                           .Where(s => s.Action != Objects.Enums.Action.Add)
-                                                                           .Sum(s => s.Amount)
-                                                                       })
+            List<Product> mostPopularProducts = await query.Select(p => new
+            {
+                Product = p,
+                OrderdAmount = p.StockActions
+                .Where(s => s.Action != Objects.Enums.Action.Add).Sum(s => s.Amount)
+            })
            .OrderByDescending(an => an.OrderdAmount).Take(howMany).Select(an => an.Product).ToListAsync();
 
             return mostPopularProducts;

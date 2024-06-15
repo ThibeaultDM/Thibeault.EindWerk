@@ -122,7 +122,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 if (user != null)
                 {
-                    // todo Sometimes succeeds in deleting and passes on not succeeded
+                    // todo Sometimes succeeds in deleting and returns not succeeded
                     IdentityResult success = await userManager.DeleteAsync(user);
 
                     if (success.Succeeded)

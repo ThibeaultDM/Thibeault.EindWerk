@@ -43,6 +43,7 @@ builder.Services.AddIdentityCore<IdentityUser>(options => options.SignIn.Require
 
 // Services
 builder.Services.AddTransient<ProductService>();
+builder.Services.AddTransient<CustomerService>();
 
 // Api
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));

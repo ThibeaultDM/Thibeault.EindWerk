@@ -183,13 +183,13 @@ namespace Thibeault.EindWerk.Api.Controllers
         }
 
         [HttpGet("GetMostPopularProducts")]
-        public async Task<IActionResult> GetMostPopularProducts()
+        public async Task<IActionResult> GetMostPopularProductsAsync()
         {
             ObjectResult result;
 
             try
             {
-                List<Product> products = await productService.MostPopularProducts(10);
+                List<Product> products = await productService.MostPopularProductsAsync(productRepository.QueryProducts(),10);
                 List<ProductResponse> response = mapper.Map<List<ProductResponse>>(products);
 
                 result = Ok(response);
