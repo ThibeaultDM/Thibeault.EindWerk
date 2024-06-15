@@ -5,6 +5,7 @@ namespace Thibeault.EindWerk.Objects.DataObjects
 {
     public class StockAction : BaseObject
     {
+        // todo een lijn die niet gekoppeld is aan een bestelling kan evenmin
         public StockAction()
         {
         }

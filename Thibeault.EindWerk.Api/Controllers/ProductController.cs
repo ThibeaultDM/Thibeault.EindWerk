@@ -126,7 +126,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 {
                     product = mapper.Map<Product>(productBo);
 
-                    await actionRepository.AddNewStockActionAsync(product, initialAction);
+                    await actionRepository.ProductAddNewStockActionsAsync(product, initialAction);
 
                     ProductResponse response = mapper.Map<ProductResponse>(productBo);
 
@@ -224,7 +224,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 if (productBo.IsValid)
                 {
                     product = mapper.Map<Product>(productBo);
-                    await actionRepository.AddNewStockActionAsync(product, stockAction);
+                    await actionRepository.ProductAddNewStockActionsAsync(product, stockAction);
 
                     ProductResponse response = mapper.Map<ProductResponse>(productBo);
                     result = Ok(response);

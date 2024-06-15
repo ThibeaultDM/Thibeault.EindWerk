@@ -7,28 +7,48 @@ namespace Thibeault.EindWerk.DataLayer
     public class StockActionRepository : BaseRepository, IStockActionRepository
     {
         private readonly IProductRepository productRepository;
+        private readonly IOrderHeaderRepository orderRepository;
 
-        public StockActionRepository(IDataContext dataContext, IProductRepository productRepository) : base(dataContext)
+        public StockActionRepository(IDataContext dataContext, IProductRepository productRepository, IOrderHeaderRepository orderRepository) : base(dataContext)
         {
             this.productRepository = productRepository;
+            this.orderRepository = orderRepository;
         }
 
         /// <summary>
-        /// cfr <see cref="IStockActionRepository.AddNewStockActionAsync"/>
+        /// cfr <see cref="IStockActionRepository.ProductAddNewStockActionsAsync"/>
         /// </summary>
-        public virtual async Task AddNewStockActionAsync(Product product, StockAction stockAction)
+        public virtual async Task ProductAddNewStockActionAsync(Product product, StockAction stockAction)
         {
             try
             {
                 await Create(stockAction);
-
                 product.StockActions.Add(stockAction);
 
                 await productRepository.UpdateProductAsync(product);
             }
             catch (Exception ex)
             {
-                string errorMessage = "-AddNewStockActionAsync-" + ex.Message;
+                string errorMessage = "-ProductAddNewStockActionsAsync-" + ex.Message;
+                throw new Exception(errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// cfr <see cref="IStockActionRepository.OrderHeaderAddNewStockActionAsync"/>
+        /// </summary>
+        public virtual async Task OrderHeaderAddNewStockActionAsync(OrderHeader orderHeader, StockAction stockAction)
+        {
+            try
+            {
+                await Create(stockAction);
+                orderHeader.StockActions.Add(stockAction);
+
+                await orderRepository.UpdateOrderHeaderAsync(orderHeader);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = "-OrderHeaderAddNewStockActionAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }

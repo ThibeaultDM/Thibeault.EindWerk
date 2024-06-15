@@ -20,18 +20,18 @@ string connectionString;
 if (Environment.MachineName == "DESKTOP-S7BR7BO")
 {
     connectionString = builder.Configuration.GetConnectionString("Thibeault")
-        ?? throw new Exception("Missing connection string");
+        ?? throw new Exception("Missing connection string, Thibeault");
 }
 else
 {
     connectionString = builder.Configuration.GetConnectionString("ProfDieHetCheckt")
-        ?? throw new Exception("Missing connection string");
+        ?? throw new Exception("Missing connection string, ProfDieHetCheckt");
 }
 
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
                                                                b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
                                                                      .EnableSensitiveDataLogging());
-// TODO remove EnableSensitiveDataLogging
+// TDOD remove EnableSensitiveDataLogging
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IStockActionRepository, StockActionRepository>();

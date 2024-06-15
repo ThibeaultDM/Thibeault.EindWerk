@@ -40,7 +40,7 @@ namespace Thibeault.EindWerk.DataLayer
             return toCreate;
         }
 
-        // todo look up if I can make DisposeAsync private for DI-container
+        // TODO look up if I can make DisposeAsync private for DI-container
         public async Task DisposeAsync()
         {
             await DisposeAsync(true);

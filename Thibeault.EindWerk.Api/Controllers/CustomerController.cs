@@ -109,7 +109,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 if (customerBo.IsValid)
                 {
                     customer = mapper.Map<Customer>(customerBo);
-                    await repository.UpdateCustomer(customer);
+                    await repository.UpdateCustomerAsync(customer);
 
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
                     result = Ok(response);
@@ -128,7 +128,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             return result;
         }
 
-        [HttpPut("UpdateCustomer")]
+        [HttpPut("UpdateCustomerAsync")]
         public async Task<IActionResult> UpdateCustomerAsync([FromBody] UpdateCustomer input)
         {
             ObjectResult result;
@@ -148,7 +148,7 @@ namespace Thibeault.EindWerk.Api.Controllers
                 if (customerBo.IsValid)
                 {
                     customer = mapper.Map<Customer>(customerBo);
-                    await repository.UpdateCustomer(customer);
+                    await repository.UpdateCustomerAsync(customer);
 
                     CreatedCustomer response = mapper.Map<CreatedCustomer>(customerBo);
                     result = Ok(response);

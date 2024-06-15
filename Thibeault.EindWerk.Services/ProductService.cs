@@ -5,7 +5,6 @@ namespace Thibeault.EindWerk.Services
 {
     public class ProductService
     {
-
         public async Task<List<Product>> MostPopularProductsAsync(IQueryable<Product> query, int howMany)
         {
             List<Product> mostPopularProducts = await query.Select(p => new

@@ -7,40 +7,40 @@ using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
-    internal interface IOrderHeaderRepository
+    public interface IOrderHeaderRepository
     {
         /// <summary>
-        /// Creates an OrderHeader in the database with serialNumber "0" and returns an empty product who you can update.
-        /// Use it to ensure no duplicate serialNumbers in the database.
+        /// Creates an OrderHeader in the database with trackingNumber "0" and returns an empty OrderHeader who you can update.
+        /// Use it to ensure no duplicate trackingNumber in the database.
         /// </summary>
-        /// <returns>An empty product whom you can update to assign values</returns>
-        Task<Product> CreateOrderHeaderAsync();
+        /// <returns>An empty OrderHeader whom you can update to assign values</returns>
+        Task<OrderHeader> CreateOrderHeaderAsync();
 
         /// <summary>
-        /// Deletes a Product
+        /// Deletes an OrderHeader
         /// </summary>
-        ///  <param name="serialNumber"></param>
+        ///  <param name="trackingNumber"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task DeleteOrderHeaderAsync(int serialNumber);
+        Task DeleteOrderHeaderAsync(int trackingNumber);
 
         /// <summary>
         /// Gets a OrderHeader
         /// </summary>
-        ///  <param name="serialNumber"></param>
+        ///  <param name="trackingNumber"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task<Product> GetProductBySerialNumberAsync(int serialNumber);
+        Task<OrderHeader> GetOrderHeaderByTrackingNumberAsync(int trackingNumber);
 
-        Task<List<Product>> GetProductsAsync();
+        Task<List<OrderHeader>> GetOrderHeadersAsync();
 
         /// <summary>
         /// Updates the UpdatedOn and UpdatedBy props as well
         /// </summary>
-        /// <param name="productToUpdate"></param>
+        /// <param name="orderHeaderToUpdate"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task UpdateProductAsync(Product productToUpdate);
+        Task UpdateOrderHeaderAsync(OrderHeader orderHeaderToUpdate);
 
 
     }

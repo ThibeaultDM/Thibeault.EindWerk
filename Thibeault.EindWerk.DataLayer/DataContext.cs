@@ -9,6 +9,7 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public class DataContext : IdentityDbContext<IdentityUser>, IDataContext
     {
+        // TODO transaction scope 
         #region Constructors
 
         public DataContext()
@@ -23,7 +24,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Address> Addresss { get; set; }
+        public DbSet<Address> Address { get; set; }
         public DbSet<IdentityUser> Users { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
 

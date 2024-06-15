@@ -7,8 +7,9 @@ namespace Thibeault.EindWerk.Objects.DataObjects
     public class OrderHeader : BaseObject
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TrackingNumber { get; set; }
+        public int Id { get; set; }
 
+        public int TrackingNumber { get; set; }
         public Customer Customer { get; set; }
 
         /// <summary>

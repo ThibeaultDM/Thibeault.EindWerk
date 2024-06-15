@@ -5,12 +5,18 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
     public interface IStockActionRepository
     {
         /// <summary>
-        /// Creates a stockActionToUpdate in the database with serialNumber "0" and returns an empty stockAction ToUpdate who you can update.
-        /// Use it to ensure no duplicate serialNumbers in the database.
+        /// Adds the stock actions to the Product and updates the Product
         /// </summary>
         ///  <param name="stockAction"></param>
         /// <returns>An empty stockActionToUpdate whom you can update to assign values</returns>
-        Task AddNewStockActionAsync(Product product, StockAction stockAction);
+        Task ProductAddNewStockActionAsync(Product product, StockAction stockAction);
+
+        /// <summary>
+        /// Adds the stock actions to the OrderHeader and updates the OrderHeader
+        /// </summary>
+        ///  <param name="stockAction"></param>
+        /// <returns>An empty stockActionToUpdate whom you can update to assign values</returns>
+        Task OrderHeaderAddNewStockActionAsync(OrderHeader orderHeader, StockAction stockAction);
 
         /// <summary>
         /// Deletes stockAction

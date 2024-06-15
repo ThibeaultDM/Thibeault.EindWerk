@@ -9,8 +9,10 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
     {
         DbSet<Product> Products { get; set; }
         DbSet<Customer> Customers { get; set; }
-        DbSet<Address> Addresss { get; set; }
+        DbSet<Address> Address { get; set; }
         DbSet<IdentityUser> Users { get; set; }
+        DbSet<OrderHeader> OrderHeaders { get; set; }
+
         DbSet<StockAction> StockActions { get; set; }
 
         ValueTask DisposeAsync();

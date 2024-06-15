@@ -105,9 +105,9 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="ICustomerRepository.GetCustomersAsync"/>
+        /// cfr <see cref="ICustomerRepository.UpdateCustomerAsync(Customer)"/>
         /// </summary>
-        public virtual async Task UpdateCustomer(Customer customerToUpdate)
+        public virtual async Task UpdateCustomerAsync(Customer customerToUpdate)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace Thibeault.EindWerk.DataLayer
             }
             catch (Exception ex)
             {
-                string errorMessage = $"{customerToUpdate.TrackingNumber}-UpdateCustomer-" + ex.Message;
+                string errorMessage = $"{customerToUpdate.TrackingNumber}-UpdateCustomerAsync-" + ex.Message;
                 throw new Exception(errorMessage);
             }
         }

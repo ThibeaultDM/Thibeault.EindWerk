@@ -33,7 +33,7 @@ namespace Thibeault.EindWerk.DataLayer
         /// <param name="customerToUpdate"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        Task UpdateCustomer(Customer customerToUpdate);
+        Task UpdateCustomerAsync(Customer customerToUpdate);
 
         /// <summary>
         /// To allow queries to be sent for Customers
