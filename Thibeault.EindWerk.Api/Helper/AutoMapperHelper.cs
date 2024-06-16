@@ -42,7 +42,8 @@ namespace Thibeault.EindWerk.Api.Helper
             CreateMap<StockAction, StockActionResponseForOrderHeader>();
 
             // OrderHeaders
-            CreateMap<OrderHeader, OrderHeaderResponse>().ReverseMap();
+            CreateMap<OrderHeader, OrderHeaderResponse>();
+            CreateMap<OrderHeader, BO_OrderHeader>().ReverseMap();
         }
     }
 }

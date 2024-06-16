@@ -9,7 +9,7 @@ namespace Thibeault.EindWerk.Api.Helper
 {
     public class JwtHelper
     {
-        private const int EXPIRATION_MINUTES = 5;
+        private const int EXPIRATION_MINUTES = 15;
 
         private readonly IConfiguration _configuration;
 

@@ -126,7 +126,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         #region Helper Methodes
 
-        private DbSet<Customer> CustomerTable()
+        public DbSet<Customer> CustomerTable()
         {
             return dataContext.Customers;
         }

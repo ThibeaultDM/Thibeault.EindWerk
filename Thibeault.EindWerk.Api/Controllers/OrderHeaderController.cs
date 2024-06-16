@@ -99,30 +99,22 @@ namespace Thibeault.EindWerk.Api.Controllers
                 Customer customer = await customerRepository.GetCustomerByTrackingNumberAsync(input.CustomerTrackingNumber);
                 OrderHeader orderHeader = await orderRepository.CreateOrderHeaderAsync(customer);
 
-                // get orderHeader ready for testing
-                BO_OrderHeader orderHeaderBo = mapper.Map<BO_OrderHeader>(orderHeader);
+                orderHeader.TrackingNumber = orderHeader.Id;
+                orderHeader.Status = Objects.Enums.Status.New;
 
-                orderHeaderBo.Id = orderHeader.Id;
-                // I don't allow the database to have a orderHeader without knowing who or when it was created
-                orderHeaderBo.CreatedBy = orderHeader.CreatedBy;
-                orderHeaderBo.CreatedOn = orderHeader.CreatedOn;
-
-                if (orderHeaderBo.IsValid)
+                foreach (StockActionResponseForOrderHeader stockActionToCheck in input.StockActions)
                 {
-                    orderHeader = mapper.Map<OrderHeader>(orderHeaderBo);
+                    StockAction stockAction = await AddStockActionToProductAsync(stockActionToCheck);
+                    stockAction.OrderHeader = orderHeader;
 
-                    await orderRepository.UpdateOrderHeaderAsync(orderHeader);
-
-                    OrderHeaderResponse response = mapper.Map<OrderHeaderResponse>(orderHeaderBo);
-
-                    result = Ok(response);
+                    orderHeader.StockActions.Add(stockAction);
                 }
-                else
-                {
-                    OrderHeaderResponse response = mapper.Map<OrderHeaderResponse>(orderHeaderBo);
 
-                    result = BadRequest(response);
-                }
+                await orderRepository.UpdateOrderHeaderAsync(orderHeader);
+
+                OrderHeaderResponse response = mapper.Map<OrderHeaderResponse>(orderHeader);
+
+                result = Ok(response);
             }
             catch (Exception ex)
             {
@@ -130,6 +122,42 @@ namespace Thibeault.EindWerk.Api.Controllers
             }
 
             return result;
+        }
+        private async Task<StockAction> AddStockActionToProductAsync(StockActionResponseForOrderHeader input)
+        {
+
+            try
+            {
+                StockAction stockAction = new()
+                {
+                    Action = Objects.Enums.Action.Reserved,
+                    Amount = input.Amount
+                };
+
+                Product product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
+
+                BO_Product productBo = mapper.Map<BO_Product>(product);
+
+                productBo.StockActions.Add(stockAction);
+
+                if (productBo.IsValid)
+                {
+                    product.Reserved = productBo.Reserved;
+                    stockAction.Product = product;
+                    await actionRepository.ProductAddNewStockActionAsync(product, stockAction);
+
+                    return stockAction;
+                }
+                else
+                {
+                    throw new Exception($"Product {input.ProductSerialNumber} does not have enough stock to reserve {input.Amount}");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         [HttpPut("ChangeOrderHeaderCustomer")]

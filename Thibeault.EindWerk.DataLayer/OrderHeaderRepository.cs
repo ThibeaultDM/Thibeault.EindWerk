@@ -6,8 +6,11 @@ namespace Thibeault.EindWerk.DataLayer
 {
     public class OrderHeaderRepository : BaseRepository, IOrderHeaderRepository
     {
-        public OrderHeaderRepository(IDataContext dataContext) : base(dataContext)
+        private readonly ICustomerRepository customerRepository;
+
+        public OrderHeaderRepository(IDataContext dataContext, ICustomerRepository customerRepository) : base(dataContext)
         {
+            this.customerRepository = customerRepository;
         }
 
         /// <summary>
@@ -31,9 +34,13 @@ namespace Thibeault.EindWerk.DataLayer
                 orderHeaderToCreate = await Create(orderHeaderToCreate);
                 orderHeaderToCreate.Customer = customer;
 
+
                 if (orderHeaderToCreate.Id == 0)
                 {
+                    customerRepository.CustomerTable().Attach(customer);
                     await OrderHeaderTable().AddAsync(orderHeaderToCreate);
+
+
                     await SaveAsync();
 
                     // To prevent tracking bug

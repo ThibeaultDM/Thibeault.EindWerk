@@ -1,4 +1,5 @@
-﻿using Thibeault.EindWerk.Objects.DataObjects;
+﻿using Microsoft.EntityFrameworkCore;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer
 {
@@ -40,5 +41,8 @@ namespace Thibeault.EindWerk.DataLayer
         /// </summary>
         /// <returns></returns>
         IQueryable<Customer> QueryCustomers();
+
+        DbSet<Customer> CustomerTable();
+
     }
 }
