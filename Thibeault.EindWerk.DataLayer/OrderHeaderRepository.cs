@@ -39,7 +39,6 @@ namespace Thibeault.EindWerk.DataLayer
                     customerRepository.CustomerTable().Attach(customer);
                     await OrderHeaderTable().AddAsync(orderHeaderToCreate);
 
-
                     await SaveAsync();
 
                     // To prevent tracking bug

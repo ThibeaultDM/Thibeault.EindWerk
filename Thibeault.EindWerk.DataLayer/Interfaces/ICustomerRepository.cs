@@ -43,6 +43,5 @@ namespace Thibeault.EindWerk.DataLayer
         IQueryable<Customer> QueryCustomers();
 
         DbSet<Customer> CustomerTable();
-
     }
 }

@@ -123,9 +123,9 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             return result;
         }
+
         private async Task<StockAction> AddStockActionToProductAsync(StockActionResponseForOrderHeader input, OrderHeader orderHeader)
         {
-
             try
             {
                 StockAction stockAction = new()
@@ -159,7 +159,6 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }
-
         }
 
         [HttpPut("ChangeOrderHeaderCustomer")]
