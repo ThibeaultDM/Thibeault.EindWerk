@@ -9,7 +9,7 @@
 
         public override string ToString()
         {
-            return "Address: " + City + ": " + PostCode.ToString() + "\n" + StreetName + " " + HouseNumber;
+            return "Addresses: " + City + ": " + PostCode.ToString() + "\n" + StreetName + " " + HouseNumber;
         }
     }
 }

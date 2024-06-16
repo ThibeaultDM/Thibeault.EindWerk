@@ -3,6 +3,6 @@
     public class RemoveStockAction
     {
         public int ProductSerialNumber { get; set; }
-        public Guid StockActionId { get; set; }
+        public int StockActionId { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Thibeault.EindWerk.DataLayer;
 namespace Thibeault.EindWerk.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240614151935_Inintialize")]
-    partial class Inintialize
+    [Migration("20240616082628_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -302,11 +302,11 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
 
             modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", b =>
                 {
-                    b.Property<int>("TrackingNumber")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrackingNumber"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -321,13 +321,16 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("TrackingNumber")
+                        .HasColumnType("int");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("TrackingNumber");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -381,9 +384,11 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
 
             modelBuilder.Entity("Thibeault.EindWerk.Objects.DataObjects.StockAction", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Action")
                         .HasColumnType("int");
@@ -398,7 +403,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderHeaderTrackingNumber")
+                    b.Property<int?>("OrderHeaderId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
@@ -412,7 +417,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderHeaderTrackingNumber");
+                    b.HasIndex("OrderHeaderId");
 
                     b.HasIndex("ProductId");
 
@@ -496,7 +501,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 {
                     b.HasOne("Thibeault.EindWerk.Objects.DataObjects.OrderHeader", "OrderHeader")
                         .WithMany("StockActions")
-                        .HasForeignKey("OrderHeaderTrackingNumber");
+                        .HasForeignKey("OrderHeaderId");
 
                     b.HasOne("Thibeault.EindWerk.Objects.DataObjects.Product", "Product")
                         .WithMany("StockActions")

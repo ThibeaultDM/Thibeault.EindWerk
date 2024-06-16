@@ -31,7 +31,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<StockAction> GetStockActionByIdAsync(Guid Id);
+        Task<StockAction> GetStockActionByIdAsync(int Id);
 
         /// <summary>
         /// Updates the UpdatedOn and UpdatedBy props as well

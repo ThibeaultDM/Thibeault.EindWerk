@@ -2,7 +2,7 @@
 {
     public class StockActionResponseForOrderHeader
     {
-        public int SerialNumber { get; set; }
+        public int ProductSerialNumber { get; set; }
         public int Amount { get; set; }
     }
 }

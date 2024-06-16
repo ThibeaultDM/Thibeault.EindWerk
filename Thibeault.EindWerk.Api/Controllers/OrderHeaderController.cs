@@ -6,7 +6,6 @@ using Thibeault.EindWerk.Api.Models.Response;
 using Thibeault.EindWerk.DataLayer;
 using Thibeault.EindWerk.DataLayer.Interfaces;
 using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Services;
 using Thibeault.EindWerk.Services.Rules.BusinessObjects;
 
 namespace Thibeault.EindWerk.Api.Controllers
@@ -18,16 +17,14 @@ namespace Thibeault.EindWerk.Api.Controllers
     {
         private readonly ICustomerRepository customerRepository;
         private readonly IOrderHeaderRepository orderRepository;
-        private readonly OrderHeaderService orderService;
         private readonly IProductRepository productRepository;
         private readonly IStockActionRepository actionRepository;
         private readonly IMapper mapper;
 
-        public OrderHeaderController(ICustomerRepository customerRepository, IOrderHeaderRepository orderRepository, OrderHeaderService orderService, IProductRepository productRepository, IStockActionRepository actionRepository, IMapper mapper)
+        public OrderHeaderController(ICustomerRepository customerRepository, IOrderHeaderRepository orderRepository, IProductRepository productRepository, IStockActionRepository actionRepository, IMapper mapper)
         {
             this.customerRepository = customerRepository;
             this.orderRepository = orderRepository;
-            this.orderService = orderService;
             this.productRepository = productRepository;
             this.actionRepository = actionRepository;
             this.mapper = mapper;
@@ -80,15 +77,6 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 OrderHeader orderHeader = await orderRepository.GetOrderHeaderByTrackingNumberAsync(input);
 
-                foreach (StockAction stockAction in orderHeader.StockActions)
-                {
-                    Product productToUpdate = await productRepository.GetProductBySerialNumberAsync(stockAction.Product.Id);
-                    productToUpdate.Reserved -= stockAction.Amount;
-                    await productRepository.UpdateProductAsync(productToUpdate);
-
-                    await actionRepository.DeleteStockActionAsync(stockAction);
-                }
-
                 await orderRepository.DeleteOrderHeaderAsync(input);
 
                 result = Ok("Order is deleted");
@@ -109,17 +97,7 @@ namespace Thibeault.EindWerk.Api.Controllers
             try
             {
                 Customer customer = await customerRepository.GetCustomerByTrackingNumberAsync(input.CustomerTrackingNumber);
-                OrderHeader orderHeader = await orderRepository.CreateOrderHeaderAsync();
-
-                orderHeader.Customer = customer;
-
-                foreach (StockActionResponseForOrderHeader stockAction in input.StockActions)
-                {
-                    Product productToUpdate = await productRepository.GetProductBySerialNumberAsync(stockAction.SerialNumber);
-                    StockAction stockActionToAdd = new(productToUpdate, Objects.Enums.Action.Reserved, stockAction.Amount);
-
-                    orderHeader.StockActions.Add(stockActionToAdd);
-                }
+                OrderHeader orderHeader = await orderRepository.CreateOrderHeaderAsync(customer);
 
                 // get orderHeader ready for testing
                 BO_OrderHeader orderHeaderBo = mapper.Map<BO_OrderHeader>(orderHeader);

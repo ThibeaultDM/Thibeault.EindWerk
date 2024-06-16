@@ -125,7 +125,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         #region Helper Methodes
 
-        private DbSet<Product> ProductTable()
+        public DbSet<Product> ProductTable()
         {
             return dataContext.Products;
         }

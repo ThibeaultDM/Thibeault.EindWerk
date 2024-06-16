@@ -13,10 +13,13 @@ namespace Thibeault.EindWerk.DataLayer
         /// <summary>
         /// cfr <see cref="IOrderHeaderRepository.CreateOrderHeaderAsync"/>
         /// </summary>
-        public virtual async Task<OrderHeader> CreateOrderHeaderAsync()
+        public virtual async Task<OrderHeader> CreateOrderHeaderAsync(Customer customer)
         {
             try
             {
+                // update customer with a valid OrderHeader look at stockAction,
+                // may first need to add the actions to the products and then construct a OrderHeader with it
+
                 // should an invalid OrderHeader have been created it will have a serial number of 0
                 // No need to have it keep taking up space
                 OrderHeader orderHeaderToCreate = await GetOrderHeaderByTrackingNumberAsync(0);
@@ -26,6 +29,7 @@ namespace Thibeault.EindWerk.DataLayer
                 orderHeaderToCreate.TrackingNumber = 0;
 
                 orderHeaderToCreate = await Create(orderHeaderToCreate);
+                orderHeaderToCreate.Customer = customer;
 
                 if (orderHeaderToCreate.Id == 0)
                 {

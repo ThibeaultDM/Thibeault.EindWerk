@@ -5,7 +5,7 @@ namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
 {
     public class BO_StockAction : BusinessObject
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public Product Product { get; set; }
 

@@ -127,6 +127,9 @@ namespace Thibeault.EindWerk.Api.Controllers
             return result;
         }
 
+        // General design: get the object you want to change,
+        // execute those changes on a BO to see if the changes are valid,
+        // save or throw error
         [HttpPut("UpdateCustomerAsync")]
         public async Task<IActionResult> UpdateCustomerAsync([FromBody] UpdateCustomer input)
         {

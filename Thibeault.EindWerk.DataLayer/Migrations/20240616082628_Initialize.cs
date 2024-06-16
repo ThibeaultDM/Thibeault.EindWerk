@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Thibeault.EindWerk.DataLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class Inintialize : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -221,8 +222,9 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 name: "OrderHeaders",
                 columns: table => new
                 {
-                    TrackingNumber = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TrackingNumber = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -232,7 +234,7 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderHeaders", x => x.TrackingNumber);
+                    table.PrimaryKey("PK_OrderHeaders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_OrderHeaders_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -245,11 +247,12 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 name: "StockActions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Action = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
-                    OrderHeaderTrackingNumber = table.Column<int>(type: "int", nullable: true),
+                    OrderHeaderId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -259,10 +262,10 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 {
                     table.PrimaryKey("PK_StockActions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StockActions_OrderHeaders_OrderHeaderTrackingNumber",
-                        column: x => x.OrderHeaderTrackingNumber,
+                        name: "FK_StockActions_OrderHeaders_OrderHeaderId",
+                        column: x => x.OrderHeaderId,
                         principalTable: "OrderHeaders",
-                        principalColumn: "TrackingNumber");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StockActions_Products_ProductId",
                         column: x => x.ProductId,
@@ -345,9 +348,9 @@ namespace Thibeault.EindWerk.DataLayer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_StockActions_OrderHeaderTrackingNumber",
+                name: "IX_StockActions_OrderHeaderId",
                 table: "StockActions",
-                column: "OrderHeaderTrackingNumber");
+                column: "OrderHeaderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StockActions_ProductId",

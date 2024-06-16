@@ -18,14 +18,14 @@ namespace Thibeault.EindWerk.Objects.DataObjects
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public Product Product { get; set; }
 
         /// <summary>
         /// Automatically set
         /// </summary>
-        public Enums.Action Action { get; set; } = Enums.Action.Remove;
+        public Enums.Action Action { get; set; } = Enums.Action.Reserved;
 
         /// <summary>
         /// What! apples, pears!? Amount is ambiguous because products are unknown
@@ -34,9 +34,15 @@ namespace Thibeault.EindWerk.Objects.DataObjects
 
         public OrderHeader? OrderHeader { get; set; }
 
-        public override string ToString()
-        {
-            return "Stock Action: " + Product.ToString() + ", " + Action.ToString() + " " + Amount.ToString() + "\n" + OrderHeader.ToString();
-        }
+        //public override string ToString()
+        //{
+        //    string Tostring = "Stock Action: " + Product.ToString() + ", " + Action.ToString() + " " + Amount.ToString();
+
+        //    if (OrderHeader != null)
+        //    {
+        //        Tostring += "\n" + OrderHeader.ToString();
+        //    }
+        //    return Tostring;
+        //}
     }
 }

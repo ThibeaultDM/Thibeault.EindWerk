@@ -9,7 +9,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// Use it to ensure no duplicate trackingNumber in the database.
         /// </summary>
         /// <returns>An empty OrderHeader whom you can update to assign values</returns>
-        Task<OrderHeader> CreateOrderHeaderAsync();
+        Task<OrderHeader> CreateOrderHeaderAsync(Customer customer);
 
         /// <summary>
         /// Deletes an OrderHeader

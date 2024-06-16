@@ -30,7 +30,7 @@ namespace Thibeault.EindWerk.Api.Helper
             CreateMap<BO_Product, ProductResponse>().ReverseMap();
             CreateMap<BO_Product, ProductDto>().ReverseMap();
 
-            // Address
+            // Addresses
             CreateMap<Address, AddressDto>().ReverseMap();
 
             // StockAction

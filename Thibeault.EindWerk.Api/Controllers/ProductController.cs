@@ -81,11 +81,6 @@ namespace Thibeault.EindWerk.Api.Controllers
             {
                 Product product = await productRepository.GetProductBySerialNumberAsync(input);
 
-                foreach (StockAction stockAction in product.StockActions)
-                {
-                    await actionRepository.DeleteStockActionAsync(stockAction);
-                }
-
                 await productRepository.DeleteProductAsync(input);
 
                 result = Ok("Product is deleted");
@@ -225,7 +220,8 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 if (productBo.IsValid)
                 {
-                    product = mapper.Map<Product>(productBo);
+                    product.Stock = productBo.Stock;
+                    stockAction.Product = product;
                     await actionRepository.ProductAddNewStockActionAsync(product, stockAction);
 
                     ProductResponse response = mapper.Map<ProductResponse>(productBo);
@@ -253,27 +249,27 @@ namespace Thibeault.EindWerk.Api.Controllers
             try
             {
                 Product product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
-                StockAction stockAction = await actionRepository.GetStockActionByIdAsync(input.StockActionId);
+                StockAction stockAction = product.StockActions.SingleOrDefault(sa => sa.Id == input.StockActionId)
+                                                ?? throw new Exception("StockAction not found");
 
-                if (stockAction.Action == Objects.Enums.Action.Add)
+                product.StockActions.RemoveAll(sa => sa.Id == input.StockActionId);
+                BO_Product productBo = mapper.Map<BO_Product>(product);
+
+                if (productBo.IsValid)
                 {
-                    product.Stock -= stockAction.Amount;
-                }
-                else if (stockAction.Action == Objects.Enums.Action.Reserved)
-                {
-                    product.Reserved -= stockAction.Amount;
+                    await actionRepository.DeleteStockActionAsync(stockAction);
+
+                    product.Stock = productBo.Stock;
+                    product.Reserved = productBo.Reserved;
+
+                    await productRepository.UpdateProductAsync(product);
+
+                    result = Ok(product);
                 }
                 else
                 {
-                    product.Stock += stockAction.Amount;
+                    result = BadRequest("Does not create a valid product");
                 }
-
-                await productRepository.UpdateProductAsync(product);
-                await actionRepository.DeleteStockActionAsync(stockAction);
-
-                product = await productRepository.GetProductBySerialNumberAsync(input.ProductSerialNumber);
-
-                result = Ok(product);
             }
             catch (Exception ex)
             {

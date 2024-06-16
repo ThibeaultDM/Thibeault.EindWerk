@@ -16,15 +16,15 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IStockActionRepository.ProductAddNewStockActionsAsync"/>
+        /// cfr <see cref="IStockActionRepository.ProductAddNewStockActionAsync(Product, StockAction)"/>
         /// </summary>
         public virtual async Task ProductAddNewStockActionAsync(Product product, StockAction stockAction)
         {
             try
             {
+                stockAction.Id = 0;
                 await Create(stockAction);
                 product.StockActions.Add(stockAction);
-
                 await productRepository.UpdateProductAsync(product);
             }
             catch (Exception ex)
@@ -41,8 +41,11 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
+                stockAction.Id = 0;
                 await Create(stockAction);
                 orderHeader.StockActions.Add(stockAction);
+                await StockActionTable().AddAsync(stockAction);
+                await SaveAsync();
 
                 await orderRepository.UpdateOrderHeaderAsync(orderHeader);
             }
@@ -72,17 +75,20 @@ namespace Thibeault.EindWerk.DataLayer
         }
 
         /// <summary>
-        /// cfr <see cref="IStockActionRepository.GetStockActionByIdAsync(Guid)"/>
+        /// cfr <see cref="IStockActionRepository.GetStockActionByIdAsync(int)"/>
         /// </summary>
-        public virtual async Task<StockAction> GetStockActionByIdAsync(Guid Id)
+        public virtual async Task<StockAction> GetStockActionByIdAsync(int Id)
         {
             try
             {
                 // I don't use singleOrDefault for possible edge case of multiple invalid (0) products existing
-                StockAction product = await StockActionTable().AsNoTracking()
+                StockAction stockAction = await StockActionTable().AsNoTracking()
                                                      .SingleOrDefaultAsync(s => s.Id == Id)
                                                      ?? throw new Exception("StockAction not found");
-                return product;
+
+                StockActionTable().Entry(stockAction).State = EntityState.Detached;
+
+                return stockAction;
             }
             catch (Exception ex)
             {

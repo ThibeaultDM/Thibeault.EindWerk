@@ -25,7 +25,7 @@ namespace Thibeault.EindWerk.DataLayer
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Address> Address { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<IdentityUser> Users { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
 
@@ -55,12 +55,17 @@ namespace Thibeault.EindWerk.DataLayer
             builder.Entity<Customer>().HasIndex(x => x.Id).IsUnique();
             builder.Entity<OrderHeader>().HasIndex(x => x.TrackingNumber).IsUnique();
 
-            builder.Entity<Customer>().HasMany(c => c.Orders).WithOne(oh => oh.Customer);
             builder.Entity<Customer>().HasOne(c => c.Address);
-            builder.Entity<OrderHeader>().HasMany(oh => oh.StockActions).WithOne(ol => ol.OrderHeader);
-            //builder.Entity<OrderLineProbablyDeprecated>().HasOne(ol => ol.StockAction).WithOne(sa => sa.OrderLineProbablyDeprecated);
-            builder.Entity<Product>().HasMany(p => p.StockActions).WithOne(s => s.Product);
+            builder.Entity<Customer>().HasMany(c => c.Orders)
+                                      .WithOne(oh => oh.Customer);
 
+            builder.Entity<OrderHeader>().HasMany(oh => oh.StockActions)
+                                         .WithOne(ol => ol.OrderHeader);
+
+            builder.Entity<Product>().HasMany(p => p.StockActions)
+                                     .WithOne(s => s.Product);
+
+            //builder.Entity<OrderLineProbablyDeprecated>().HasOne(ol => ol.StockAction).WithOne(sa => sa.OrderLineProbablyDeprecated);
             base.OnModelCreating(builder);
         }
     }

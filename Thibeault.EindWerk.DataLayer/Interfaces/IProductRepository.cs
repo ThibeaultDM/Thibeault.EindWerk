@@ -1,4 +1,5 @@
-﻿using Thibeault.EindWerk.Objects.DataObjects;
+﻿using Microsoft.EntityFrameworkCore;
+using Thibeault.EindWerk.Objects.DataObjects;
 
 namespace Thibeault.EindWerk.DataLayer.Interfaces
 {
@@ -42,5 +43,7 @@ namespace Thibeault.EindWerk.DataLayer.Interfaces
         /// </summary>
         /// <returns></returns>
         IQueryable<Product> QueryProducts();
+
+        DbSet<Product> ProductTable();
     }
 }
