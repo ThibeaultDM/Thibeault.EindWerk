@@ -104,7 +104,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 
                 foreach (StockActionResponseForOrderHeader stockActionToCheck in input.StockActions)
                 {
-                    StockAction stockAction = await AddStockActionToProductAsync(stockActionToCheck);
+                    StockAction stockAction = await AddStockActionToProductAsync(stockActionToCheck, orderHeader);
                     stockAction.OrderHeader = orderHeader;
 
                     orderHeader.StockActions.Add(stockAction);
@@ -123,7 +123,7 @@ namespace Thibeault.EindWerk.Api.Controllers
 
             return result;
         }
-        private async Task<StockAction> AddStockActionToProductAsync(StockActionResponseForOrderHeader input)
+        private async Task<StockAction> AddStockActionToProductAsync(StockActionResponseForOrderHeader input, OrderHeader orderHeader)
         {
 
             try
@@ -144,6 +144,8 @@ namespace Thibeault.EindWerk.Api.Controllers
                 {
                     product.Reserved = productBo.Reserved;
                     stockAction.Product = product;
+                    stockAction.OrderHeader = orderHeader;
+
                     await actionRepository.ProductAddNewStockActionAsync(product, stockAction);
 
                     return stockAction;

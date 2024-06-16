@@ -34,7 +34,6 @@ namespace Thibeault.EindWerk.DataLayer
                 orderHeaderToCreate = await Create(orderHeaderToCreate);
                 orderHeaderToCreate.Customer = customer;
 
-
                 if (orderHeaderToCreate.Id == 0)
                 {
                     customerRepository.CustomerTable().Attach(customer);
@@ -84,7 +83,7 @@ namespace Thibeault.EindWerk.DataLayer
         {
             try
             {
-                return await OrderHeaderTable().Include(c => c.StockActions).ToListAsync();
+                return await OrderHeaderTable().Include(c => c.Customer).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -102,7 +101,7 @@ namespace Thibeault.EindWerk.DataLayer
             {
                 // I don't use singleOrDefault for possible edge case of multiple invalid (0) OrderHeaders existing
                 OrderHeader orderHeader = await OrderHeaderTable()
-                                                     .AsNoTracking().Include(c => c.StockActions)
+                                                     .AsNoTracking().Include(c => c.Customer)
                                                      .FirstOrDefaultAsync(c => c.TrackingNumber == trackingNumber)
                                                      ?? (trackingNumber == 0 ? new() : throw new Exception("OrderHeader not found"));
                 return orderHeader;
