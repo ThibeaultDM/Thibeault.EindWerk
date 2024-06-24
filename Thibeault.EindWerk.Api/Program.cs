@@ -23,8 +23,8 @@ if (Environment.MachineName == "DESKTOP-S7BR7BO")
 }
 else
 {
-    connectionString = builder.Configuration.GetConnectionString("ProfDieHetCheckt")
-        ?? throw new Exception("Missing connection string, ProfDieHetCheckt");
+    connectionString = builder.Configuration.GetConnectionString("ProfDieHetChecked")
+        ?? throw new Exception("Missing connection string, ProfDieHetChecked");
 }
 
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
