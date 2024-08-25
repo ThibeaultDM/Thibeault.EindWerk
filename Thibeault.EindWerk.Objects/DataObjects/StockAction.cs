@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Thibeault.EindWerk.Objects.DataObjects
+namespace Thibeault.Example.Objects.DataObjects
 {
     public class StockAction : BaseObject
     {

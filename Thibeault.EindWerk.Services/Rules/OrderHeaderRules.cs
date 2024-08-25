@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Services.Rules.BusinessObjects;
-using Thibeault.EindWerk.Services.Rules.RulesFramework;
+using Thibeault.Example.Objects.DataObjects;
+using Thibeault.Example.Services.Rules.BusinessObjects;
+using Thibeault.Example.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Services.Rules
+namespace Thibeault.Example.Services.Rules
 {
     public class OrderHeaderRules : Rule
     {

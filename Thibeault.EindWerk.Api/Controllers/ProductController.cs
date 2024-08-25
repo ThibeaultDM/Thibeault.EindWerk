@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Thibeault.EindWerk.Api.Models.Input;
-using Thibeault.EindWerk.Api.Models.Response;
-using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Services;
-using Thibeault.EindWerk.Services.Rules.BusinessObjects;
+using Thibeault.Example.Api.Models.Input;
+using Thibeault.Example.Api.Models.Response;
+using Thibeault.Example.DataLayer.Interfaces;
+using Thibeault.Example.Objects.DataObjects;
+using Thibeault.Example.Services;
+using Thibeault.Example.Services.Rules.BusinessObjects;
 
-namespace Thibeault.EindWerk.Api.Controllers
+namespace Thibeault.Example.Api.Controllers
 {
     // TODO make a base Response
 

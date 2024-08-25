@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Thibeault.EindWerk.DataLayer;
+using Thibeault.Example.DataLayer;
 
 #nullable disable
 
-namespace Thibeault.EindWerk.DataLayer.Migrations
+namespace Thibeault.Example.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20240616082628_Initialize")]

@@ -3,9 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Thibeault.EindWerk.Api.Models.Response;
+using Thibeault.Example.Api.Models.Response;
 
-namespace Thibeault.EindWerk.Api.Helper
+namespace Thibeault.Example.Api.Helper
 {
     public class JwtHelper
     {

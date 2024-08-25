@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Thibeault.EindWerk.DataLayer.DataSeeding
+namespace Thibeault.Example.DataLayer.DataSeeding
 {
     public class SeedUserHelper
     {

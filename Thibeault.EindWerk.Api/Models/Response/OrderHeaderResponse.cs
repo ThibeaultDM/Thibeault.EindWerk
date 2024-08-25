@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Objects.Enums;
+﻿using Thibeault.Example.Objects.Enums;
 
-namespace Thibeault.EindWerk.Api.Models.Response
+namespace Thibeault.Example.Api.Models.Response
 {
     public class OrderHeaderResponse
     {

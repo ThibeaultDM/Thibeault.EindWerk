@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Objects.DataObjects;
+using Thibeault.Example.DataLayer.Interfaces;
+using Thibeault.Example.Objects;
+using Thibeault.Example.Objects.DataObjects;
 
-namespace Thibeault.EindWerk.DataLayer
+namespace Thibeault.Example.DataLayer
 {
     public class DataContext : IdentityDbContext<IdentityUser>, IDataContext
     {

@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Objects.Enums
+﻿namespace Thibeault.Example.Objects.Enums
 {
     public enum Status
     {

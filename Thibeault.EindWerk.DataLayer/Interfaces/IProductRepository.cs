@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Thibeault.EindWerk.Objects.DataObjects;
+using Thibeault.Example.Objects.DataObjects;
 
-namespace Thibeault.EindWerk.DataLayer.Interfaces
+namespace Thibeault.Example.DataLayer.Interfaces
 {
     public interface IProductRepository
     {

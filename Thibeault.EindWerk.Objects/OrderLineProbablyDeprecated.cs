@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Objects.DataObjects;
+﻿using Thibeault.Example.Objects.DataObjects;
 
-namespace Thibeault.EindWerk.Objects
+namespace Thibeault.Example.Objects
 {
     public class OrderLineProbablyDeprecated
     {

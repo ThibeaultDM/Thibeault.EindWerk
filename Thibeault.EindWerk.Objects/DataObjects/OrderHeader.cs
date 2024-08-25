@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Thibeault.EindWerk.Objects.Enums;
+using Thibeault.Example.Objects.Enums;
 
-namespace Thibeault.EindWerk.Objects.DataObjects
+namespace Thibeault.Example.Objects.DataObjects
 {
     public class OrderHeader : BaseObject
     {

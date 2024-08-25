@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Api.Models.Input
+﻿namespace Thibeault.Example.Api.Models.Input
 {
     public class StockActionDto
     {

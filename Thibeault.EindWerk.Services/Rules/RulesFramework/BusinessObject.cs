@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Objects;
+﻿using Thibeault.Example.Objects;
 
-namespace Thibeault.EindWerk.Services.Rules.RulesFramework
+namespace Thibeault.Example.Services.Rules.RulesFramework
 {
     public class BusinessObject : BaseObject
     {

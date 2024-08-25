@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Thibeault.EindWerk.DataLayer.Migrations
+namespace Thibeault.Example.DataLayer.Migrations
 {
     /// <inheritdoc />
     public partial class Initialize : Migration

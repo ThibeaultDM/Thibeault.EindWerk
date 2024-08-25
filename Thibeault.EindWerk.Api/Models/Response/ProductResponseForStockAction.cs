@@ -1,4 +1,4 @@
-﻿namespace Thibeault.EindWerk.Api.Models.Response
+﻿namespace Thibeault.Example.Api.Models.Response
 {
     public class ProductResponseForStockAction
     {

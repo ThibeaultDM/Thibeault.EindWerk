@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
+﻿using Thibeault.Example.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Api.Models.Response
+namespace Thibeault.Example.Api.Models.Response
 {
     public class StockActionResponse
     {

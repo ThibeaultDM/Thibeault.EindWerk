@@ -1,7 +1,7 @@
-﻿using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Services.Rules.RulesFramework;
+﻿using Thibeault.Example.Objects.DataObjects;
+using Thibeault.Example.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Services.Rules.BusinessObjects
+namespace Thibeault.Example.Services.Rules.BusinessObjects
 {
     public class BO_StockAction : BusinessObject
     {

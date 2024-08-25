@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Thibeault.EindWerk.Api.Helper;
-using Thibeault.EindWerk.Api.Models.Input;
+using Thibeault.Example.Api.Helper;
+using Thibeault.Example.Api.Models.Input;
 
-namespace Thibeault.EindWerk.Api.Controllers
+namespace Thibeault.Example.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

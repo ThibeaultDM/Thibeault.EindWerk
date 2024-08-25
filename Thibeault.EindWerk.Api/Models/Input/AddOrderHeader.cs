@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Api.Models.Response;
+﻿using Thibeault.Example.Api.Models.Response;
 
-namespace Thibeault.EindWerk.Api.Models.Input
+namespace Thibeault.Example.Api.Models.Input
 {
     public class AddOrderHeader
     {

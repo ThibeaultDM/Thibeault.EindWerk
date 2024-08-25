@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Services.Rules.RulesFramework;
+﻿using Thibeault.Example.Services.Rules.RulesFramework;
 
-namespace Thibeault.EindWerk.Services.Rules
+namespace Thibeault.Example.Services.Rules
 {
     public class StockActionRules : Rule
     {

@@ -1,7 +1,7 @@
-﻿using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Objects;
+﻿using Thibeault.Example.DataLayer.Interfaces;
+using Thibeault.Example.Objects;
 
-namespace Thibeault.EindWerk.DataLayer
+namespace Thibeault.Example.DataLayer
 {
     public abstract class BaseRepository
     {

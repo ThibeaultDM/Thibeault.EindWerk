@@ -1,6 +1,6 @@
-﻿using Thibeault.EindWerk.Api.Models.Input;
+﻿using Thibeault.Example.Api.Models.Input;
 
-namespace Thibeault.EindWerk.Api.Models.Response
+namespace Thibeault.Example.Api.Models.Response
 {
     public class ProductResponse
     {

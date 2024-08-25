@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Objects.Enums;
+using Thibeault.Example.Objects.DataObjects;
+using Thibeault.Example.Objects.Enums;
 
-namespace Thibeault.EindWerk.Services
+namespace Thibeault.Example.Services
 {
     public class CustomerService
     {

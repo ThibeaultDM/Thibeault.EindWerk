@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Thibeault.EindWerk.Api.Models.Input;
-using Thibeault.EindWerk.Api.Models.Response;
-using Thibeault.EindWerk.Objects;
-using Thibeault.EindWerk.Objects.DataObjects;
-using Thibeault.EindWerk.Services.Rules.BusinessObjects;
+using Thibeault.Example.Api.Models.Input;
+using Thibeault.Example.Api.Models.Response;
+using Thibeault.Example.Objects;
+using Thibeault.Example.Objects.DataObjects;
+using Thibeault.Example.Services.Rules.BusinessObjects;
 
-namespace Thibeault.EindWerk.Api.Helper
+namespace Thibeault.Example.Api.Helper
 {
     public class AutoMapperHelper : Profile
     {

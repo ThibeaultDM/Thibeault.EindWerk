@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Thibeault.EindWerk.Api.Helper;
-using Thibeault.EindWerk.DataLayer;
-using Thibeault.EindWerk.DataLayer.DataSeeding;
-using Thibeault.EindWerk.DataLayer.Interfaces;
-using Thibeault.EindWerk.Services;
+using Thibeault.Example.Api.Helper;
+using Thibeault.Example.DataLayer;
+using Thibeault.Example.DataLayer.DataSeeding;
+using Thibeault.Example.DataLayer.Interfaces;
+using Thibeault.Example.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,9 +28,9 @@ else
 }
 
 builder.Services.AddDbContext<IDataContext, DataContext>(options => options.UseSqlServer(connectionString,
-                                                               b => b.MigrationsAssembly("Thibeault.EindWerk.DataLayer"))
+                                                               b => b.MigrationsAssembly("Thibeault.Example.DataLayer"))
                                                                      .EnableSensitiveDataLogging());
-// TDOD remove EnableSensitiveDataLogging
+// TODO remove EnableSensitiveDataLogging
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IStockActionRepository, StockActionRepository>();
